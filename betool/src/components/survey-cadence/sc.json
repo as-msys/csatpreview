@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_survey_cadence_scs",
+  "info": {
+    "displayName": "SC",
+    "icon": "bars"
+  },
+  "options": {},
+  "attributes": {
+    "survey_frequency": {
+      "type": "enumeration",
+      "enum": [
+        "Half_Yearly",
+        "Monthly",
+        "Quarterly"
+      ],
+      "default": "Quarterly",
+      "required": true
+    },
+    "send_before": {
+      "type": "integer"
+    }
+  }
+}
