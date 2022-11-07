@@ -1,40 +1,57 @@
 import { Box } from "@mui/system";
 import { parseCookies } from "nookies";
 import axios from "axios";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
 const Client = ({ clients }) => {
   return (
     <>
       <Box variant="container">
-        Client Collections
-        <hr />
+        <h1>Client Collections</h1>
+
         {clients.data.map((user) => (
-          <div key={user.id}>
-            <h3>Name of the Client- {user.attributes.name}</h3>
-            <div>
-              <h3>
-                {" "}
-                Name of the delivery Head:{" "}
-                {user.attributes.delivery_head.data.attributes.name}
-              </h3>
-              {user.attributes.projects.data.map((project) => {
-                return (
-                  <div key={project.id}>
-                    <h3>ProjectName:{project.attributes.name}</h3>
-                    <h3>sow_start_date:{project.attributes.sow_start_date}</h3>
-                  </div>
-                );
-              })}
-              {user.attributes.point_of_contacts.map((person) => {
-                return (
-                  <div key={person.id}>
-                    <h3>POC:{person.name}</h3>
-                  </div>
-                );
-              })}
-            </div>
-            <hr />
-          </div>
+          <Card variant="outlined" style={{ width: "50vw", marginTop: "1rem" }}>
+            <CardContent>
+              <div key={user.id}>
+                <Typography>
+                  <b>Name of the Client- </b>
+                  {user.attributes.name}
+                </Typography>
+
+                <Typography>
+                  {" "}
+                  <b>Name of the delivery Head:</b>{" "}
+                  {user.attributes.delivery_head.data.attributes.name}
+                </Typography>
+                {user.attributes.projects.data.map((project) => {
+                  return (
+                    <div key={project.id}>
+                      <Typography>
+                        <b>ProjectName:</b>
+                        {project.attributes.name}
+                      </Typography>
+                      <Typography>
+                        <b>sow_start_date:</b>
+                        {project.attributes.sow_start_date}
+                      </Typography>
+                    </div>
+                  );
+                })}
+                {user.attributes.point_of_contacts.map((person) => {
+                  return (
+                    <div key={person.id}>
+                      <Typography>
+                        <b>POC:</b>
+                        {person.name}
+                      </Typography>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
         ))}
       </Box>
     </>
