@@ -1,7 +1,47 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
+import { ToastContainer,toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { parseCookies  } from 'nookies'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyApp({ Component, pageProps,navigation }) {
+  return (
+    <>
+      <ToastContainer autoClose={1000}/>
+      <Component {...pageProps} />
+    </>
+  );
 }
 
-export default MyApp
+function redirectUser(ctx, location) {
+  if (ctx.req) {
+      ctx.res.writeHead(302, { Location: location });
+      ctx.res.end();
+  } else {
+      Router.push(location);
+  }
+}
+
+MyApp.getInitialProps = async ({Component, ctx}) => {
+  let pageProps = {}
+  const jwt = parseCookies(ctx).jwt
+
+  const res = await fetch(`http://localhost:1337/navigations`)
+  const navigation = await res.json()
+
+  if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx)
+  }
+
+  if (!jwt) {
+      if (ctx.pathname === "/clients") {
+        redirectUser(ctx, "/");
+      }
+  }
+
+  return {
+      pageProps,
+      navigation
+  }
+}
+
+export default MyApp;
