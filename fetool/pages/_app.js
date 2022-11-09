@@ -14,6 +14,7 @@ function MyApp({ Component, pageProps,navigation }) {
 
 function redirectUser(ctx, location) {
   if (ctx.req) {
+    //302-Resource requested has been temporarily moved to the URL given by the Location header.
       ctx.res.writeHead(302, { Location: location });
       ctx.res.end();
   } else {
@@ -23,6 +24,7 @@ function redirectUser(ctx, location) {
 
 MyApp.getInitialProps = async ({Component, ctx}) => {
   let pageProps = {}
+  //Accessing cookies in NextJS from server side
   const jwt = parseCookies(ctx).jwt
 
   const res = await fetch(`http://localhost:1337/navigations`)
