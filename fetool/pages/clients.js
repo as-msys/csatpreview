@@ -12,9 +12,9 @@ const Client = ({ clients }) => {
         <h1>Client Collections</h1>
 
         {clients.data.map((user) => (
-          <Card variant="outlined" style={{ width: "50vw", marginTop: "1rem",backgroundColor: "#ADD8E6" }}>
+          <Card key={user.id} variant="outlined" style={{ width: "50vw", marginTop: "1rem",backgroundColor: "#ADD8E6" }}>
             <CardContent>
-              <div key={user.id}>
+              <div>
                 <Typography>
                   <b>Name of the Client- </b>
                   {user.attributes.name}

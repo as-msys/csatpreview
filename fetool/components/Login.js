@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 
 const Login = () => {
+  const {API_URL} = process.env
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -15,7 +16,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     await axios
-      .post("http://localhost:1337/api/auth/local", {
+      .post(`http://localhost:1337/api/auth/local`, {
         identifier: formData.username,
         password: formData.password,
       })
