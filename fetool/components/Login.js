@@ -11,7 +11,6 @@ import { setCookie } from "nookies";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const { API_URL } = process.env;
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -24,7 +23,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     await axios
-      .post(`http://localhost:1337/api/auth/local`, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/local`, {
         identifier: formData.username,
         password: formData.password,
       })
