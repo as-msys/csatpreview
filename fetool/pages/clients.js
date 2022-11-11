@@ -4,6 +4,7 @@ import axios from "axios";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import apiList from "../apiRoutes/apiNames";
 
 const Client = ({ clients }) => {
   return (
@@ -70,7 +71,7 @@ export async function getServerSideProps(ctx) {
   const jwt = parseCookies(ctx).jwt;
 
   const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/clients?fields=name&populate=delivery_head%2Cpoint_of_contacts%2Cprojects`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cpoint_of_contacts%2Cprojects`,
     {
       headers: {
         Authorization: `Bearer ${jwt}`,
