@@ -1,4 +1,8 @@
 import { Button, Stack, TextField } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import axios from "axios";
@@ -6,13 +10,17 @@ import Router from "next/router";
 import { setCookie } from "nookies";
 import { toast } from "react-toastify";
 
-
 const Login = () => {
-  const {API_URL} = process.env
+  const { API_URL } = process.env;
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   const handleLogin = async () => {
     await axios
@@ -27,19 +35,17 @@ const Login = () => {
           maxAge: 30 * 24 * 60 * 60,
           path: "/",
         });
-       
-        
+        //To clear the data after storing it in database
+        setFormData({
+          username: "",
+          password: "",
+        });
+
         Router.push("/clients");
       })
       .catch((error) => {
         // Handle error.
         toast.error(error.response.data.error.message);
-        
-      });
-      //To clear the data after storing it in database
-      setFormData({
-        username: "",
-        password: "",
       });
   };
 
@@ -64,9 +70,11 @@ const Login = () => {
           placeholder="Enter Username"
           fullWidth
         />
+
         <TextField
           id="password"
           label="password"
+          type={showPassword ? "text" : "password"}
           variant="outlined"
           title="password"
           name="password"
@@ -74,6 +82,18 @@ const Login = () => {
           value={formData.password}
           placeholder="Enter a password"
           fullWidth
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                >
+                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
 
         <Button
