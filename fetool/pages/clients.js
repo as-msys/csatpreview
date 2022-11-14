@@ -1,24 +1,20 @@
 import React from "react";
 import useSWR from "swr";
 import { Box } from "@mui/system";
-import axios from "axios";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import apiList from "../apiRoutes/apiNames";
 
-const fetcher = async () => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cpoint_of_contacts%2Cprojects`
-  );
-  const clientData = response.data;
-  return clientData;
-};
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Client = () => {
-  const { data, error } = useSWR("clientDetails", fetcher); //(uniquekey,fetcher function)
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cpoint_of_contacts%2Cprojects`,
+    fetcher
+  ); //(uniquekey,fetcher function)
   if (error) return "An error has occured";
-  if (!data) return "Loading";
+  if (!data) return "Loading...";
 
   return (
     <>
