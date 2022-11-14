@@ -31,6 +31,7 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
     pageProps = await Component.getInitialProps(ctx);
   }
 
+  //Directed to clientsData page only if jwt token is valid
   if (!jwt) {
     if (ctx.pathname === "/clients") {
       redirectUser(ctx, "/");

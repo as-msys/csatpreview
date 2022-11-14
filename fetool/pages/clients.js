@@ -1,18 +1,31 @@
+import React from "react";
+import useSWR from "swr";
 import { Box } from "@mui/system";
-import { parseCookies } from "nookies";
 import axios from "axios";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import apiList from "../apiRoutes/apiNames";
 
-const Client = ({ clients }) => {
+const fetcher = async () => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cpoint_of_contacts%2Cprojects`
+  );
+  const clientData = response.data;
+  return clientData;
+};
+
+const Client = () => {
+  const { data, error } = useSWR("clientDetails", fetcher); //(uniquekey,fetcher function)
+  if (error) return "An error has occured";
+  if (!data) return "Loading";
+
   return (
     <>
       <Box variant="container">
         <h1>Client Collections</h1>
 
-        {clients.data.map((user) => (
+        {data.data.map((user) => (
           <Card
             key={user.id}
             variant="outlined"
@@ -66,26 +79,5 @@ const Client = ({ clients }) => {
     </>
   );
 };
-
-export async function getServerSideProps(ctx) {
-  const jwt = parseCookies(ctx).jwt;
-
-  const res = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cpoint_of_contacts%2Cprojects`,
-    {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    }
-  );
-
-  const clients = await res.data;
-
-  return {
-    props: {
-      clients: clients,
-    },
-  };
-}
 
 export default Client;

@@ -22,6 +22,7 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
+    //NEXT_PUBLIC as prefix to access it from clientside
     await axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/local`, {
         identifier: formData.username,
