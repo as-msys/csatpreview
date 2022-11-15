@@ -9,6 +9,8 @@ import axios from "axios";
 import Router from "next/router";
 import { setCookie } from "nookies";
 import { toast } from "react-toastify";
+import Image from "next/image";
+import Logo from "../assets/Group.png";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -57,10 +59,17 @@ const Login = () => {
 
   return (
     <Box className="content">
-      <Stack spacing={2} className="form">
-        <Typography variant="h6" gutterBottom>
+      <Box className="header">
+        <Image src={Logo} alt="Logo of the company" />
+        <Typography variant="h2" style={{ fontWeight: "700" }}>
+          CSAT
+        </Typography>
+      </Box>
+      <Stack spacing={3} className="form">
+        <Typography variant="h5" style={{ fontWeight: "600" }}>
           Login
         </Typography>
+
         <TextField
           id="username"
           label="username"
@@ -75,6 +84,7 @@ const Login = () => {
 
         <TextField
           id="password"
+          className="TextField"
           label="password"
           type={showPassword ? "text" : "password"}
           variant="outlined"
@@ -101,7 +111,7 @@ const Login = () => {
         <Button
           className="button"
           variant="contained"
-          style={{ marginTop: "3rem" }}
+          style={{ padding: "11px 0px" }}
           onClick={handleLogin}
         >
           Login

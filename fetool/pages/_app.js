@@ -1,5 +1,5 @@
-import "../styles/globals.css";
 import { ToastContainer, toast } from "react-toastify";
+import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { parseCookies } from "nookies";
 import * as React from "react";
