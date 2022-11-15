@@ -15,12 +15,12 @@ const Client = () => {
   ); //(uniquekey,fetcher function)
   if (error)
     return <Typography variant="h2">"An error has occured"</Typography>;
-  if (!data) return <Typography variant="h2">"Loading..."</Typography>;
+  if (!data) return <Typography variant="h4">"Loading..."</Typography>;
 
   return (
     <>
       <Box variant="container">
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h3" gutterBottom style={{ marginTop: "1rem" }}>
           Client Collections
         </Typography>
 
