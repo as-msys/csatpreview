@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import Head from "next/head";
 import Login from "../components/Login";
 
@@ -10,12 +11,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header>
-        <h1 className="heading">MSys</h1>
+        <Typography variant="h3">MSys</Typography>
       </header>
       <Login />
       <footer>
-        <div>
-          <h2 className="heading">© MSys Technologies</h2>
+        <div style={{ margin: "10rem 0 0 0" }}>
+          <Typography variant="h5">© MSys Technologies</Typography>
         </div>
       </footer>
     </div>

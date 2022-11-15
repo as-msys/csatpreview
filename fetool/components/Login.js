@@ -1,4 +1,4 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -58,7 +58,9 @@ const Login = () => {
   return (
     <Box className="content">
       <Stack spacing={2} className="form">
-        <h2 className="title">Login</h2>
+        <Typography variant="h6" gutterBottom>
+          Login
+        </Typography>
         <TextField
           id="username"
           label="username"

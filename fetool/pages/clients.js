@@ -13,32 +13,27 @@ const Client = () => {
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cpoint_of_contacts%2Cprojects`,
     fetcher
   ); //(uniquekey,fetcher function)
-  if (error) return "An error has occured";
-  if (!data) return "Loading...";
+  if (error)
+    return <Typography variant="h2">"An error has occured"</Typography>;
+  if (!data) return <Typography variant="h2">"Loading..."</Typography>;
 
   return (
     <>
       <Box variant="container">
-        <h1>Client Collections</h1>
+        <Typography variant="h3" gutterBottom>
+          Client Collections
+        </Typography>
 
         {data.data.map((user) => (
-          <Card
-            key={user.id}
-            variant="outlined"
-            style={{
-              width: "50vw",
-              marginTop: "1rem",
-              backgroundColor: "#ADD8E6",
-            }}
-          >
+          <Card key={user.id} variant="outlined">
             <CardContent>
               <div>
-                <Typography>
+                <Typography variant="h6">
                   <b>Name of the Client- </b>
                   {user.attributes.name}
                 </Typography>
 
-                <Typography>
+                <Typography variant="h6">
                   {" "}
                   <b>Name of the delivery Head:</b>{" "}
                   {user.attributes.delivery_head.data.attributes.name}
@@ -46,11 +41,11 @@ const Client = () => {
                 {user.attributes.projects.data.map((project) => {
                   return (
                     <div key={project.id}>
-                      <Typography>
+                      <Typography variant="h6">
                         <b>ProjectName:</b>
                         {project.attributes.name}
                       </Typography>
-                      <Typography>
+                      <Typography variant="h6">
                         <b>sow_start_date:</b>
                         {project.attributes.sow_start_date}
                       </Typography>
@@ -60,7 +55,7 @@ const Client = () => {
                 {user.attributes.point_of_contacts.map((person) => {
                   return (
                     <div key={person.id}>
-                      <Typography>
+                      <Typography variant="h6">
                         <b>POC:</b>
                         {person.name}
                       </Typography>
