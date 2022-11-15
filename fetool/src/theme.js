@@ -14,6 +14,11 @@ const theme = createTheme({
       dark: "#B22C5A",
     },
   },
+  typography: {
+    h2: {
+      fontWeight: 700,
+    },
+  },
 });
 
 export default theme;

@@ -61,9 +61,7 @@ const Login = () => {
     <Box className="content">
       <Box className="header">
         <Image src={Logo} alt="Logo of the company" />
-        <Typography variant="h2" style={{ fontWeight: "700" }}>
-          CSAT
-        </Typography>
+        <Typography variant="h2">CSAT</Typography>
       </Box>
       <Stack spacing={3} className="form">
         <Typography variant="h5" style={{ fontWeight: "600" }}>
@@ -111,6 +109,7 @@ const Login = () => {
         <Button
           className="button"
           variant="contained"
+          color="primary"
           style={{ padding: "11px 0px" }}
           onClick={handleLogin}
         >
