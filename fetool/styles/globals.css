@@ -1,34 +1,32 @@
 .content {
-  min-width: 6vh;
-  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  height: 70vh;
   text-align: center;
-  width: 25%;
+}
+
+.heroImg {
+  image-rendering: crisp-edges;
+  position: absolute;
+  top: 15%;
+  right: 50%;
+}
+
+.headerHome {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .header {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  padding: 0px;
-  gap: 12px;
-  width: 205.12px;
-  height: 71px;
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  position: absolute;
-  top: 20%;
-  left: 43%;
-  right: 40%;
 }
+
 .form {
-  position: absolute;
-  top: 40%;
-  left: 40%;
-  right: 40%;
+  margin-left: 60%;
+  margin-top: 15%;
+  margin-right: 10%;
+  width: auto;
 }
 .MuiOutlinedInput-input:hover {
   cursor: pointer;

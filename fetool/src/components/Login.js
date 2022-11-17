@@ -63,9 +63,9 @@ const Login = () => {
       <Image src={heroImage} alt="survey" className="heroImg" />
       <Stack spacing={2} className="form">
         <Header />
-        <Typography variant="h6" style={{ fontWeight: "600" }}>
+        {/* <Typography variant="h6" style={{ fontWeight: "600" }}>
           Login
-        </Typography>
+        </Typography> */}
 
         <TextField
           id="username"

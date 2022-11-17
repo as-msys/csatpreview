@@ -27,6 +27,10 @@ const theme = createTheme({
     subtitle1: {
       fontWeight: 500,
     },
+    myVariant: {
+      fontWeight: 500,
+      fontSize: "1.5rem",
+    },
   },
 });
 
