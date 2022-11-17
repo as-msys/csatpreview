@@ -9,8 +9,9 @@ import axios from "axios";
 import Router from "next/router";
 import { setCookie } from "nookies";
 import { toast } from "react-toastify";
+import Header from "../components/Header";
 import Image from "next/image";
-import Logo from "../assets/Group.png";
+import heroImage from "../assets/heroImage.png";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -59,12 +60,10 @@ const Login = () => {
 
   return (
     <Box className="content">
-      <Box className="header">
-        <Image src={Logo} alt="Logo of the company" />
-        <Typography variant="h2">CSAT</Typography>
-      </Box>
-      <Stack spacing={3} className="form">
-        <Typography variant="h5" style={{ fontWeight: "600" }}>
+      <Image src={heroImage} alt="survey" className="heroImg" />
+      <Stack spacing={2} className="form">
+        <Header />
+        <Typography variant="h6" style={{ fontWeight: "600" }}>
           Login
         </Typography>
 

@@ -5,7 +5,8 @@ import { parseCookies } from "nookies";
 import * as React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import theme from "../src/theme";
+import theme from "../src/components/theme";
+import Layout from "../src/components/Layout/sidebar";
 
 function MyApp(props) {
   const { Component, pageProps } = props;
@@ -16,7 +17,9 @@ function MyApp(props) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <ToastContainer autoClose={3000} />
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     </>
   );

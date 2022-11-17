@@ -21,7 +21,7 @@ const Client = () => {
   return (
     <>
       <Box variant="container">
-        <Typography variant="h3" gutterBottom sx={{ mt: "2rem" }}>
+        <Typography variant="h5" gutterBottom sx={{ m: "2rem" }}>
           Client Collections
         </Typography>
         <Grid
@@ -30,7 +30,7 @@ const Client = () => {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           {data.data.map((user) => (
-            <Grid item xs={2} sm={4} md={3} key={user.id} mx={2}>
+            <Grid item xs={2} md={4} key={user.id} mx={2}>
               <Card variant="outlined">
                 <CardContent>
                   <div>

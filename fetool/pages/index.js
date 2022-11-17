@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import Head from "next/head";
 import Login from "../src/components/Login";
 
