@@ -31,7 +31,7 @@ const Sidebar = ({ children }) => {
   const StyledList = styled(List)({
     // selected and (selected + hover) states
     "&& .Mui-selected, && .Mui-selected:hover": {
-      backgroundColor: "#303f9f",
+      backgroundColor: "#4153AF",
       "&, & .MuiListItemIcon-root": {
         color: "white",
       },
@@ -117,7 +117,7 @@ const Sidebar = ({ children }) => {
           </Drawer>
           <footer
             style={{
-              backgroundColor: "#616161",
+              backgroundColor: "#757575;",
               position: "fixed",
               bottom: "0",
               right: "0",

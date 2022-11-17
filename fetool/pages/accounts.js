@@ -1,13 +1,15 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
+import CardHeader from "@mui/material/CardHeader";
 import Avatar from "@mui/material/Avatar";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
+import Grid from "@mui/material/Grid";
 import useSWR from "swr";
 import apiList from "../apiRoutes/apiNames";
+import { styled } from "@mui/material/styles";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -20,35 +22,55 @@ const Accounts = () => {
     return <Typography variant="h2">"An error has occured"</Typography>;
   if (!data) return <Typography variant="h4">"Loading..."</Typography>;
 
+  const cardContentStyled = styled(CardContent)({
+    "&& .MuiCardHeader-root": {
+      paddingBottom: 0,
+    },
+  });
+
   return (
     <Box sx={{ m: 2 }}>
-      <Typography variant="myVariant" gutterBottom m={2}>
+      <Typography variant="myVariant" gutterBottom m={3}>
         Accounts
       </Typography>
+      <Grid
+        container
+        spacing={2}
+        direction="row"
+        justify="flex-start"
+        alignItems="flex-start"
+        padding={2}
+      >
+        {data.data.map((user) => (
+          <Grid item xs={12} sm={6} md={4} key={user.id}>
+            <Card variant="outlined">
+              <CardHeader
+                avatar={
+                  <Avatar sx={{ bgcolor: "#7879F1", width: 60, height: 60 }}>
+                    {user.attributes.name[0]}
+                  </Avatar>
+                }
+                title={user.attributes.name}
+                subheader={user.attributes.delivery_head.data.attributes.name}
+              />
 
-      <Card variant="outlined" style={{ width: "30%", margin: "1rem" }}>
-        <div style={{ display: "flex" }}>
-          <Avatar alt="LL" style={{ margin: "1rem" }}>
-            LL
-          </Avatar>
-          <CardContent>
-            <Typography variant="h5" gutterBottom>
-              Liquidware Labs
-            </Typography>
-            <Typography
-              sx={{ fontSize: 14 }}
-              component="div"
-              color="text.secondary"
-            >
-              Vinoth J
-            </Typography>
-          </CardContent>
-        </div>
-        <CardActions style={{ justifyContent: "space-between" }}>
-          <Typography variant="body2">3 Project(s)</Typography>
-          <Button size="small">View</Button>
-        </CardActions>
-      </Card>
+              <cardContentStyled
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography variant="newVariant" sx={{ paddingX: "1rem" }}>
+                  {user.attributes.projects.data.length} Project(s)
+                </Typography>
+                <Button color="buttonColor" sx={{ fontWeight: 700 }}>
+                  View
+                </Button>
+              </cardContentStyled>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   );
 };
