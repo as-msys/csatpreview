@@ -16,7 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
-const drawerWidth = "15rem"; //240px/8=15rem
+const drawerWidth = "18rem"; //240px/8=15rem
 
 const Sidebar = ({ children }) => {
   const router = useRouter();
@@ -35,10 +35,6 @@ const Sidebar = ({ children }) => {
       "&, & .MuiListItemIcon-root": {
         color: "white",
       },
-    },
-    // hover states
-    "& .MuiListItemButton-root:hover": {
-      backgroundColor: "primary",
     },
   });
 
@@ -99,18 +95,17 @@ const Sidebar = ({ children }) => {
             <Box
               style={{
                 position: "fixed",
-                bottom: "10%",
+                bottom: "1%",
+                margin: "1rem",
                 display: "flex",
+                justifyContent: "space-around",
               }}
             >
-              <PersonIcon sx={{ ml: 1 }} />
-              <Typography
-                variant="subtitle1"
-                style={{ marginRight: "5rem", marginLeft: "0.5rem" }}
-              >
+              <PersonIcon sx={{ m: 1 }} />
+              <Typography variant="subtitle1" sx={{ m: 1 }}>
                 Manager
               </Typography>
-              <IconButton>
+              <IconButton sx={{ ml: "6rem" }}>
                 <LogoutIcon />
               </IconButton>
             </Box>

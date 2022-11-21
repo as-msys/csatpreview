@@ -22,11 +22,20 @@ const Accounts = () => {
     return <Typography variant="h2">"An error has occured"</Typography>;
   if (!data) return <Typography variant="h4">"Loading..."</Typography>;
 
-  const cardContentStyled = styled(CardContent)({
+  const CardContentStyled = styled(CardContent)({
     "&& .MuiCardHeader-root": {
       paddingBottom: 0,
     },
   });
+
+  const stringAvatar = (name) => {
+    let avatarName = name[0];
+    if (name.indexOf(" ") >= 0) {
+      const newName = name.split(" ");
+      avatarName = newName[0][0] + newName[1][0];
+    }
+    return avatarName;
+  };
 
   return (
     <Box sx={{ m: 2 }}>
@@ -43,18 +52,27 @@ const Accounts = () => {
       >
         {data.data.map((user) => (
           <Grid item xs={12} sm={6} md={4} key={user.id}>
-            <Card variant="outlined">
+            <Card
+              variant="outlined"
+              sx={{ bgcolor: "#f5f5f5", border: "none" }}
+            >
               <CardHeader
                 avatar={
-                  <Avatar sx={{ bgcolor: "#7879F1", width: 60, height: 60 }}>
-                    {user.attributes.name[0]}
+                  <Avatar
+                    sx={{
+                      bgcolor: "primary.main",
+                      width: 55,
+                      height: 55,
+                    }}
+                  >
+                    {stringAvatar(user.attributes.name)}
                   </Avatar>
                 }
                 title={user.attributes.name}
                 subheader={user.attributes.delivery_head.data.attributes.name}
               />
 
-              <cardContentStyled
+              <CardContentStyled
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -63,10 +81,14 @@ const Accounts = () => {
                 <Typography variant="newVariant" sx={{ paddingX: "1rem" }}>
                   {user.attributes.projects.data.length} Project(s)
                 </Typography>
-                <Button color="buttonColor" sx={{ fontWeight: 700 }}>
+                <Button
+                  color="secondary"
+                  size="small"
+                  sx={{ fontWeight: 700, mx: 2 }}
+                >
                   View
                 </Button>
-              </cardContentStyled>
+              </CardContentStyled>
             </Card>
           </Grid>
         ))}

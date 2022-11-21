@@ -14,7 +14,7 @@ const Header = () => {
         variant={router.pathname === "/" ? "h4" : "h5"}
         style={{ marginLeft: "1rem" }}
       >
-        CSAT Proto
+        <b>CSAT</b> Proto
       </Typography>
     </Box>
   );
