@@ -8,8 +8,6 @@ const theme = createTheme({
     },
     secondary: {
       main: "#ff4081",
-      light: "#FF669A",
-      dark: "#B22C5A",
     },
     neutral: {
       main: "#212121",
@@ -20,7 +18,8 @@ const theme = createTheme({
       fontWeight: 400,
     },
     h4: {
-      fontWeight: 700,
+      fontWeight: 400,
+      fontSize: "34px",
     },
     subtitle1: {
       fontWeight: 500,
@@ -31,8 +30,9 @@ const theme = createTheme({
       color: "#757575",
     },
     myVariant: {
-      fontWeight: 700,
-      fontSize: "2rem",
+      fontWeight: 400,
+      fontSize: "2.5rem",
+      marginLeft: "1.5rem",
     },
     body2: {
       fontWeight: 400,

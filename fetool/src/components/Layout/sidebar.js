@@ -16,7 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 
-const drawerWidth = "18rem"; //240px/8=15rem
+const drawerWidth = "17rem"; //240px/8=15rem
 
 const Sidebar = ({ children }) => {
   const router = useRouter();
@@ -35,6 +35,9 @@ const Sidebar = ({ children }) => {
       "&, & .MuiListItemIcon-root": {
         color: "white",
       },
+      "&, & .MuiSvgIcon-root": {
+        color: "white",
+      },
     },
   });
 
@@ -47,7 +50,7 @@ const Sidebar = ({ children }) => {
     {
       text: "Accounts",
       icon: <FolderIcon color="neutral" />,
-      path: "/accounts",
+      path: "/Accounts",
     },
     {
       text: "Surveys",
@@ -64,66 +67,55 @@ const Sidebar = ({ children }) => {
     <Box style={{ display: "flex" }}>
       {/* conditional rendering of drawer */}
       {children.type.name !== "Home" && (
-        <>
-          <Drawer
-            variant="permanent"
-            anchor="left"
-            sx={{ ...styles }}
-            PaperProps={{
-              sx: {
-                backgroundColor: "#F5F7FF",
-              },
-            }}
-          >
-            <div style={{ margin: "1rem" }}>
-              <Header />
-            </div>
-            <StyledList>
-              {menuItems?.map((item) => (
-                <ListItemButton
-                  selected={router.pathname === item.path ? true : false}
-                  key={item.text}
-                  onClick={() => {
-                    Router.push(item.path);
-                  }}
-                >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText sx={{ ml: -2.5 }}>{item.text}</ListItemText>
-                </ListItemButton>
-              ))}
-            </StyledList>
-            <Box
-              style={{
-                position: "fixed",
-                bottom: "1%",
-                margin: "1rem",
-                display: "flex",
-                justifyContent: "space-around",
-              }}
-            >
-              <PersonIcon sx={{ m: 1 }} />
-              <Typography variant="subtitle1" sx={{ m: 1 }}>
-                Manager
-              </Typography>
-              <IconButton sx={{ ml: "6rem" }}>
-                <LogoutIcon />
-              </IconButton>
-            </Box>
-          </Drawer>
-          <footer
+        <Drawer
+          variant="permanent"
+          anchor="left"
+          sx={{ ...styles }}
+          PaperProps={{
+            sx: {
+              backgroundColor: "#F5F7FF",
+            },
+          }}
+        >
+          <div style={{ margin: "1rem" }}>
+            <Header />
+          </div>
+          <StyledList>
+            {menuItems?.map((item) => (
+              <ListItemButton
+                selected={router.pathname.includes(item.path) ? true : false}
+                key={item.text}
+                onClick={() => {
+                  Router.push(item.path);
+                }}
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText sx={{ ml: -2.5 }}>{item.text}</ListItemText>
+              </ListItemButton>
+            ))}
+          </StyledList>
+          <Box
             style={{
-              backgroundColor: "#757575;",
               position: "fixed",
-              bottom: "0",
-              right: "0",
-              width: "100%",
-              textAlign: "center",
-              color: "white",
+              bottom: "1%",
+              margin: "1rem",
+              display: "flex",
+              justifyContent: "space-around",
             }}
           >
-            ©2022 MSys Technologies
-          </footer>
-        </>
+            <PersonIcon sx={{ mt: 0, ml: 1 }} />
+            <Typography variant="subtitle1" sx={{ mb: 4, px: 1 }}>
+              Manager
+            </Typography>
+            <IconButton
+              sx={{ ml: "4rem", mt: -1.5, width: "50px", height: "50px" }}
+            >
+              <LogoutIcon />
+            </IconButton>
+          </Box>
+
+          <footer className="footerClass">© 2022 MSys Technologies</footer>
+        </Drawer>
       )}
       <Box sx={{ width: "100%", height: "100vh" }}>{children}</Box>
     </Box>

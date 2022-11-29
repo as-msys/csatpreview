@@ -1,3 +1,3 @@
-const apiList = ["clients", "employees"];
+const apiList = ["clients", "employees", "projects"];
 
 export default apiList;

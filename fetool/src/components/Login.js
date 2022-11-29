@@ -44,7 +44,7 @@ const Login = () => {
           password: "",
         });
 
-        Router.push("/clients");
+        Router.push("/Accounts");
       })
       .catch((error) => {
         // Handle error.
@@ -63,9 +63,6 @@ const Login = () => {
       <Image src={heroImage} alt="survey" className="heroImg" />
       <Stack spacing={2} className="form">
         <Header />
-        {/* <Typography variant="h6" style={{ fontWeight: "600" }}>
-          Login
-        </Typography> */}
 
         <TextField
           id="username"
@@ -98,7 +95,7 @@ const Login = () => {
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                 >
-                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </IconButton>
               </InputAdornment>
             ),
@@ -109,6 +106,7 @@ const Login = () => {
           className="button"
           variant="contained"
           color="primary"
+          size="large"
           style={{ padding: "11px 0px" }}
           onClick={handleLogin}
         >
