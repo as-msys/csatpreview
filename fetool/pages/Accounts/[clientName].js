@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import apiList from "../../apiRoutes/apiNames";
@@ -11,6 +11,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const clientName = () => {
   const router = useRouter();
+
   const clientName = router.query.clientName;
 
   //API CALL
@@ -31,7 +32,7 @@ const clientName = () => {
 
   return (
     <>
-      <BreadCrumbs clientName={clientName} />
+      <BreadCrumbs pathofclient={clientName} />
       <ProjectHeader />
       <Grid container rowSpacing={2} columnSpacing={2} padding={2}>
         {filteredClients.map((user) => (
@@ -41,7 +42,7 @@ const clientName = () => {
               pmname={user.attributes.project_manager.data.attributes.name}
               countofmembers={user.attributes.team_members.data.length}
               uniqueid={user.id}
-              routeindicator={false}
+              accountsindicator={false}
             />
           </Grid>
         ))}

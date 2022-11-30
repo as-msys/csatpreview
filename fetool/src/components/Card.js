@@ -6,18 +6,18 @@ import {
   Typography,
   Avatar,
   Button,
-  Grid,
+  Stack,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 const clientName = ({
   clientname,
   pmname,
   countofmembers,
   uniqueid,
-  routeindicator,
+  accountsindicator,
 }) => {
   const router = useRouter();
   const pathname = router.pathname;
@@ -30,6 +30,15 @@ const clientName = ({
     },
   });
 
+  //Typography component
+  const StyledTypography = styled(Typography)({
+    maxHeight: "1.5rem",
+    color: "#212121",
+    fontSize: "15px",
+    letterSpacing: "0.15px",
+  });
+
+  //Button Component
   const StyledButton = styled(Button)({
     "&.Mui-disabled": {
       color: "#ff4081",
@@ -86,34 +95,20 @@ const clientName = ({
             </Avatar>
           }
           action={
-            !routeindicator ? (
+            !accountsindicator ? (
               <>
                 {uniqueid % 2 !== 0 ? (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "flex-end",
-                    }}
-                  >
-                    <Box
-                      className="circle"
-                      sx={{
-                        mr: "0.2rem",
-                        letterSpacing: "0.17px",
-                        lineHeight: "17.16px",
-                      }}
-                    ></Box>
-                    <Typography variant="newVariant" sx={{ color: "#212121" }}>
-                      OverDue
-                    </Typography>
-                  </Box>
+                  <Stack direction="row" spacing={0.5}>
+                    <Box className="circle" sx={{ mt: 0.8, ml: 7 }}></Box>
+                    <StyledTypography sx={{ ml: 9 }}>OverDue</StyledTypography>
+                  </Stack>
                 ) : (
-                  <Box sx={{ display: "flex" }}>
-                    <Box className="circle2" sx={{ mr: "0.2rem" }}></Box>
-                    <Typography variant="newVariant" sx={{ color: "#212121" }}>
+                  <Stack direction="row" spacing={0.5}>
+                    <Box className="circle2" sx={{ mt: 0.8, ml: 7 }}></Box>
+                    <StyledTypography sx={{ ml: 7, letterSpacing: "0.08" }}>
                       Completed
-                    </Typography>
-                  </Box>
+                    </StyledTypography>
+                  </Stack>
                 )}
               </>
             ) : null
@@ -153,8 +148,8 @@ const clientName = ({
           </Typography>
         )}
 
-        {uniqueid % 2 !== 0 && !routeindicator ? (
-          <StyledButton disabled size="large" sx={{ fontWeight: 700 }}>
+        {uniqueid % 2 !== 0 && !accountsindicator ? (
+          <StyledButton disabled size="large" sx={{ fontWeight: 600 }}>
             View
           </StyledButton>
         ) : (

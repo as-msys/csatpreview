@@ -5,6 +5,7 @@ import { Box } from "@mui/system";
 import Grid from "@mui/material/Grid";
 import useSWR from "swr";
 import apiList from "../../apiRoutes/apiNames";
+import { useRouter } from "next/router";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -30,7 +31,7 @@ const Accounts = () => {
               pmname={user.attributes.delivery_head.data.attributes.name}
               countofmembers={user.attributes.projects.data.length}
               uniqueid={user.id}
-              routeindicator={true}
+              accountsindicator={true}
             />
           </Grid>
         ))}
