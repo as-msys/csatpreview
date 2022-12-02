@@ -16,11 +16,16 @@ const clientName = ({
   clientname,
   pmname,
   countofmembers,
-  uniqueid,
   accountsindicator,
+  surveyfrequency,
+  sendbeforedate,
 }) => {
   const router = useRouter();
   const pathname = router.pathname;
+
+  //To get the current day of the month
+  const date = new Date();
+  let currentDay = date.getDate();
 
   //To remove the original paddings in the bottom
   const CardContentStyled = styled(CardContent)({
@@ -38,14 +43,6 @@ const clientName = ({
     letterSpacing: "0.15px",
   });
 
-  //Button Component
-  const StyledButton = styled(Button)({
-    "&.Mui-disabled": {
-      color: "#ff4081",
-      opacity: "0.6",
-    },
-  });
-
   //To design the letters in Avatar
   const stringAvatar = (name) => {
     let avatarName = name[0];
@@ -57,18 +54,42 @@ const clientName = ({
   };
 
   //Randomizing the avatar colour
-  const stringToColor = (string) => {
+  const getHashOfString = (string) => {
     let hash = 0;
     let i;
     for (i = 0; i < string.length; i += 1) {
       hash = string.charCodeAt(i) + ((hash << 5) - hash);
     }
-    let color = "#";
-    for (i = 0; i < 3; i += 1) {
-      const value = (hash >> (i * 8)) & 0xff;
-      color += `00${value.toString(16)}`.slice(-2);
-    }
-    return color;
+    hash = Math.abs(hash);
+    return hash;
+  };
+
+  const normalizeHash = (hash, min, max) => {
+    return Math.floor((hash % (max - min)) + min);
+  };
+
+  const hRange = [0, 360];
+  const sRange = [30, 50];
+  const lRange = [80, 90];
+
+  const generateHSL = (name) => {
+    const hash = getHashOfString(name);
+    const h = normalizeHash(hash, hRange[0], hRange[1]);
+    const s = normalizeHash(hash, sRange[0], sRange[1]);
+    const l = normalizeHash(hash, lRange[0], lRange[1]);
+    return [h, s, l];
+  };
+
+  const generateHSLForColor = (name) => {
+    const hash = getHashOfString(name);
+    const h = normalizeHash(hash, hRange[0], hRange[1]);
+    const s = normalizeHash(hash, sRange[0] + 60, sRange[1] + 50);
+    const l = normalizeHash(hash, lRange[0] - 70, lRange[1] - 70);
+    return [h, s, l];
+  };
+
+  const HSLtoString = (hsl) => {
+    return `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
   };
 
   return (
@@ -85,7 +106,8 @@ const clientName = ({
           avatar={
             <Avatar
               sx={{
-                bgcolor: stringToColor(clientname),
+                bgcolor: HSLtoString(generateHSL(clientname)),
+                color: HSLtoString(generateHSLForColor(clientname)),
                 width: 50,
                 height: 50,
                 m: -1,
@@ -95,23 +117,14 @@ const clientName = ({
             </Avatar>
           }
           action={
-            !accountsindicator ? (
-              <>
-                {uniqueid % 2 !== 0 ? (
-                  <Stack direction="row" spacing={0.5}>
-                    <Box className="circle" sx={{ mt: 0.8, ml: 7 }}></Box>
-                    <StyledTypography sx={{ ml: 9 }}>OverDue</StyledTypography>
-                  </Stack>
-                ) : (
-                  <Stack direction="row" spacing={0.5}>
-                    <Box className="circle2" sx={{ mt: 0.8, ml: 7 }}></Box>
-                    <StyledTypography sx={{ ml: 7, letterSpacing: "0.08" }}>
-                      Completed
-                    </StyledTypography>
-                  </Stack>
-                )}
-              </>
-            ) : null
+            !accountsindicator && (
+              <Stack direction="row" spacing={0.4}>
+                <Box className="circle" sx={{ mt: 0.6, ml: 6 }}></Box>
+                <StyledTypography sx={{ letterSpacing: "0.09" }}>
+                  {sendbeforedate - currentDay} days left
+                </StyledTypography>
+              </Stack>
+            )
           }
           sx={{
             lineHeight: "20.8px",
@@ -148,19 +161,13 @@ const clientName = ({
           </Typography>
         )}
 
-        {uniqueid % 2 !== 0 && !accountsindicator ? (
-          <StyledButton disabled size="large" sx={{ fontWeight: 600 }}>
-            View
-          </StyledButton>
-        ) : (
-          <Button
-            size="large"
-            sx={{ fontWeight: 700, color: "#EF5350" }}
-            onClick={() => router.push(`/Accounts/${clientname}`)}
-          >
-            View
-          </Button>
-        )}
+        <Button
+          size="large"
+          sx={{ fontWeight: 700, color: "#EF5350" }}
+          onClick={() => router.push(`/Accounts/${clientname}`)}
+        >
+          View
+        </Button>
       </CardContentStyled>
     </Card>
   );

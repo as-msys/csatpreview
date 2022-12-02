@@ -6,6 +6,8 @@ import { Grid, Typography } from "@mui/material";
 import ProjectHeader from "../../src/components/pageHeader/ProjectHeader";
 import Card from "../../src/components/Card";
 import BreadCrumbs from "../../src/components/BreadCrumbs";
+import InfoOutlined from "../../src/components/InfoOutlined";
+import Nodata from "../../src/components/Nodata";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -34,6 +36,7 @@ const clientName = () => {
     <>
       <BreadCrumbs pathofclient={clientName} />
       <ProjectHeader />
+      <InfoOutlined />
       <Grid container rowSpacing={2} columnSpacing={2} padding={2}>
         {filteredClients.map((user) => (
           <Grid item md={3} key={user.id}>
@@ -41,11 +44,13 @@ const clientName = () => {
               clientname={user.attributes.name}
               pmname={user.attributes.project_manager.data.attributes.name}
               countofmembers={user.attributes.team_members.data.length}
-              uniqueid={user.id}
               accountsindicator={false}
+              surveyfrequency={user.attributes.survey_cadence.survey_frequency}
+              sendbeforedate={user.attributes.survey_cadence.send_before}
             />
           </Grid>
         ))}
+        {/* <Nodata /> */}
       </Grid>
     </>
   );

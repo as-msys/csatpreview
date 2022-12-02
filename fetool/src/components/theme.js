@@ -22,7 +22,8 @@ const theme = createTheme({
       fontSize: "34px",
     },
     subtitle1: {
-      fontWeight: 500,
+      fontSize: "16px",
+      fontWeight: 400,
     },
     newVariant: {
       fontWeight: 400,

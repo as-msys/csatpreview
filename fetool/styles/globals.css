@@ -56,16 +56,18 @@
   border-top: 1.5px solid rgba(198, 203, 230, 0.75);
 }
 
-.circle2 {
-  width: 10px;
-  height: 10px;
-  background: #4caf50;
-  border-radius: 5px;
-}
-
 .circle {
   width: 10px;
   height: 10px;
-  background: red;
+  background: orange;
   border-radius: 5px;
+}
+
+.NodataImg {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
