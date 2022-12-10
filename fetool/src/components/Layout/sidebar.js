@@ -1,6 +1,6 @@
 import React from "react";
 import { Drawer, Box, Typography } from "@mui/material";
-import Header from "../Header";
+import LogoHeader from "../LogoHeader";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import FolderIcon from "@mui/icons-material/Folder";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
@@ -21,9 +21,9 @@ const drawerWidth = "17rem"; //240px/8=15rem
 const Sidebar = ({ children }) => {
   const router = useRouter();
   const styles = {
-    width: drawerWidth, //separating children from the sidebar component in a layout
+    width: drawerWidth,
     "& .MuiDrawer-paper": {
-      width: drawerWidth, //sidebar width
+      width: drawerWidth,
       boxSizing: "border-box",
     },
   };
@@ -78,7 +78,7 @@ const Sidebar = ({ children }) => {
           }}
         >
           <div style={{ margin: "1rem" }}>
-            <Header />
+            <LogoHeader />
           </div>
           <StyledList>
             {menuItems?.map((item) => (
@@ -108,7 +108,12 @@ const Sidebar = ({ children }) => {
               Manager
             </Typography>
             <IconButton
-              sx={{ ml: "4rem", mt: -1.5, width: "50px", height: "50px" }}
+              sx={{
+                ml: "4rem",
+                mt: -1.5,
+                width: "50px",
+                height: "50px",
+              }}
             >
               <LogoutIcon />
             </IconButton>

@@ -32,6 +32,12 @@
       "type": "component",
       "repeatable": true,
       "component": "point-of-contacts.poc"
+    },
+    "surveys": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::survey.survey",
+      "mappedBy": "template"
     }
   }
 }

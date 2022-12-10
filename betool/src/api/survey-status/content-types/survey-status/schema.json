@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "survey_statuses",
+  "info": {
+    "singularName": "survey-status",
+    "pluralName": "survey-statuses",
+    "displayName": "SurveyStatus"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "surveys": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::survey.survey",
+      "mappedBy": "survey_status"
+    }
+  }
+}

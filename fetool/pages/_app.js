@@ -7,7 +7,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "../src/components/theme";
 import Layout from "../src/components/Layout/sidebar";
+import { SWRConfig } from "swr";
 
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 function MyApp(props) {
   const { Component, pageProps } = props;
 
@@ -17,9 +19,11 @@ function MyApp(props) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <ToastContainer autoClose={3000} />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <SWRConfig value={{ fetcher }}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SWRConfig>
       </ThemeProvider>
     </>
   );

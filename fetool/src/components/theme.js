@@ -4,13 +4,16 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#4153AF",
+      main: "#3F51B5",
     },
     secondary: {
       main: "#ff4081",
     },
     neutral: {
       main: "#212121",
+    },
+    disabled: {
+      main: "rgba(0,0,0,0.26)",
     },
   },
   typography: {
@@ -21,22 +24,42 @@ const theme = createTheme({
       fontWeight: 400,
       fontSize: "34px",
     },
-    subtitle1: {
-      fontSize: "16px",
-      fontWeight: 400,
+    surveyVariant: {
+      fontWeight: 700,
+      fontSize: "20px",
+      marginTop: "2rem",
+      marginLeft: "1.5rem",
     },
-    newVariant: {
+    templateVariant: {
+      fontWeight: 700,
+      fontSize: "17px",
+      marginTop: "1rem",
+      marginLeft: "1rem",
+    },
+    subtitle1: {
+      fontSize: "15px",
+      fontWeight: 400,
+      color: "rgba(0,0,0,0.6)",
+    },
+    subtitle2: {
+      fontSize: "15px",
+      fontWeight: 400,
+      lineHeight: "20.02px",
+      color: "rgba(0,0,0,0.6)",
+      marginBottom: "1rem",
+    },
+    countVariant: {
       fontWeight: 400,
       fontSize: "0.9rem",
       color: "#757575",
     },
-    myVariant: {
+    titleVariant: {
       fontWeight: 400,
       fontSize: "2.5rem",
       marginLeft: "1.5rem",
     },
     body2: {
-      fontWeight: 400,
+      fontWeight: 500,
       fontSize: "16px",
       color: "#000000",
     },

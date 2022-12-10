@@ -9,7 +9,7 @@ import axios from "axios";
 import Router from "next/router";
 import { setCookie } from "nookies";
 import { toast } from "react-toastify";
-import Header from "../components/Header";
+import LogoHeader from "../components/LogoHeader";
 import Image from "next/image";
 import heroImage from "../assets/heroImage.png";
 
@@ -62,7 +62,7 @@ const Login = () => {
     <Box className="content">
       <Image src={heroImage} alt="survey" className="heroImg" />
       <Stack spacing={2} className="form">
-        <Header />
+        <LogoHeader />
 
         <TextField
           id="username"
