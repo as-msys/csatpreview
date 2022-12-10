@@ -2,7 +2,7 @@ import * as React from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Divider, Stack, Typography, Box } from "@mui/material";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -49,7 +49,12 @@ const AccordionQuestion = () => {
               defaultExpanded={index === 0 ? true : false}
             >
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
+                expandIcon={
+                  <ArrowDropDownIcon
+                    fontSize="large"
+                    sx={{ color: "#ff4081" }}
+                  />
+                }
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >

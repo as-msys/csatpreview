@@ -1,10 +1,11 @@
 import * as React from "react";
-import { Box, CardHeader, Drawer, Typography } from "@mui/material";
+import { Box, CardHeader, Drawer, Typography, Divider } from "@mui/material";
 import useSWR from "swr";
 import apiList from "../../../apiRoutes/apiNames";
 import AvatarLogo from "../AvatarLogo";
 import DividerText from "../DividerText";
 import format from "date-fns/format";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 
 const drawerWidth = "25rem";
 const month = new Date().toLocaleString("en-us", { month: "short" });
@@ -94,6 +95,30 @@ const PermanentDrawerRight = ({ project }) => {
                 headerData={"Project Members"}
                 length={4}
               />
+              <Divider
+                textAlign="left"
+                sx={{
+                  fontSize: "17px",
+                  fontWeight: 600,
+                  color: "#3F51B5",
+                  marginBottom: "1rem",
+                  marginTop: 0,
+                }}
+              >
+                Past Surveys
+              </Divider>
+
+              <SentimentVeryDissatisfiedIcon
+                fontSize="large"
+                sx={{ color: "#757575", ml: 20 }}
+              />
+              <Typography
+                variant="body2"
+                color="#757575"
+                sx={{ mx: 6, fontWeight: "700" }}
+              >
+                There are no past surveys to display.
+              </Typography>
             </Box>
           );
         })}
