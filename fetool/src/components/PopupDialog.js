@@ -30,7 +30,7 @@ const PopupDialog = ({ open, handleClose }) => {
               fontWeight: "600",
               fontSize: "17px",
             }}
-            onClick={handleRouting}
+            onClick={handleClose}
           >
             No
           </Button>
@@ -39,7 +39,7 @@ const PopupDialog = ({ open, handleClose }) => {
               fontWeight: "600",
               fontSize: "17px",
             }}
-            onClick={handleClose}
+            onClick={handleRouting}
           >
             Yes
           </Button>

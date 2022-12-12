@@ -29,7 +29,6 @@ const AccordionQuestion = ({ choosenTemplate }) => {
     return filteredOnes;
   });
 
-  console.log(filteredQuestions);
   const CustomExpandIcon = () => {
     return (
       <Box

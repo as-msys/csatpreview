@@ -11,13 +11,15 @@ import { useRouter } from "next/router";
 const Accounts = () => {
   const router = useRouter();
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?populate=%2A`
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cprojects`
   );
   if (error)
     return (
       <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
     );
   if (!data) return <Typography variant="h4">"Loading..."</Typography>;
+
+  console.log(data);
 
   //To remove the original paddings in the bottom
   const CardContentStyled = styled(CardContent)({
@@ -58,9 +60,9 @@ const Accounts = () => {
                 <Button
                   size="large"
                   sx={{ fontWeight: 700, color: "#FF4081" }}
-                  onClick={() =>
-                    router.push(`/Accounts/${client.attributes.name}`)
-                  }
+                  onClick={() => {
+                    router.push(`/Accounts/${client.attributes.name}`);
+                  }}
                 >
                   View
                 </Button>

@@ -55,7 +55,7 @@ const HorizontalLabelPositionBelowStepper = ({
           </Step>
         ))}
       </StyledStepper>
-      <Box sx={{ mt: 4, ml: -1.5, mb: activeStep === 0 ? 35 : 10 }}>
+      <Box sx={{ mt: 4, ml: -1.5, mb: activeStep === 0 ? 20 : 10 }}>
         {children}
       </Box>
 
