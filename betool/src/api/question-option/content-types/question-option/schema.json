@@ -22,6 +22,9 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::question-option-type.question-option-type"
+    },
+    "slug": {
+      "type": "uid"
     }
   }
 }

@@ -39,6 +39,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::question-option.question-option"
+    },
+    "slug": {
+      "type": "uid"
     }
   }
 }

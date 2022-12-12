@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   StepLabel,
   Step,
@@ -27,6 +27,7 @@ const HorizontalLabelPositionBelowStepper = ({
   nextStep,
   activeStep,
   steps,
+  disabled,
 }) => {
   const router = useRouter();
   const { params = [] } = router.query;
@@ -96,6 +97,7 @@ const HorizontalLabelPositionBelowStepper = ({
           <Button
             variant="contained"
             color="primary"
+            disabled={disabled}
             size="large"
             sx={{ mb: 4 }}
             onClick={() => nextStep()}

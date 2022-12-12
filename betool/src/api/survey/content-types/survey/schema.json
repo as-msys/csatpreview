@@ -20,7 +20,7 @@
       "targetField": "name"
     },
     "responseDeadlineDate": {
-      "type": "datetime"
+      "type": "date"
     },
     "project": {
       "type": "relation",
@@ -37,8 +37,13 @@
     "template": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::template.template",
+      "target": "api::client.client",
       "inversedBy": "surveys"
+    },
+    "client": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::client.client"
     }
   }
 }

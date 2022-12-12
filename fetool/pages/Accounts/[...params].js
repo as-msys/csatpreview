@@ -5,7 +5,6 @@ import ProjectDetailHeader from "../../src/components/pageHeader/ProjectDetailHe
 import HorizontalLabelPositionBelowStepper from "../../src/components/Stepper";
 import Rightbar from "../../src/components/Layout/Rightbar";
 import SelectVariants from "../../src/components/Dropdown";
-import Questions from "../../src/components/Questions";
 import AccordionQuestion from "../../src/components/AccordianQuestion";
 import POC from "../../src/components/POC";
 import { Box, Typography } from "@mui/material";
@@ -18,6 +17,12 @@ const projectName = () => {
   const { params } = router.query;
   const projectNameInLowerCase = params[1].toLowerCase();
   const [activeStep, setActiveStep] = useState(0);
+  const [disabled, setDisabled] = useState(true);
+  const [template, setTemplate] = React.useState("Template1");
+
+  const handleChange = (event) => {
+    setTemplate(event.target.value);
+  };
 
   const nextStep = () => {
     if (activeStep < steps.length - 1) {
@@ -46,6 +51,7 @@ const projectName = () => {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setDisabled(!disabled);
   };
 
   return (
@@ -60,16 +66,17 @@ const projectName = () => {
         nextStep={nextStep}
         handleBack={handleBack}
         steps={steps}
+        disabled={disabled}
       >
         {activeStep === 0 ? (
-          <POC />
+          <POC setDisabled={setDisabled} />
         ) : (
           <>
             <Typography variant="surveyVariant">
               Please choose a template for your survey
             </Typography>
-            <SelectVariants />
-            <AccordionQuestion />
+            <SelectVariants template={template} handleChange={handleChange} />
+            <AccordionQuestion choosenTemplate={template} />
           </>
         )}
       </HorizontalLabelPositionBelowStepper>

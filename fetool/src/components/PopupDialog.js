@@ -25,16 +25,23 @@ const PopupDialog = ({ open, handleClose }) => {
 
         <DialogActions sx={{ m: 1 }}>
           <Button
-            sx={{ fontWeight: "600", fontSize: "17px" }}
+            color="disabled"
+            sx={{
+              fontWeight: "600",
+              fontSize: "17px",
+            }}
             onClick={handleRouting}
           >
-            Yes
+            No
           </Button>
           <Button
-            sx={{ fontWeight: "600", fontSize: "17px" }}
+            sx={{
+              fontWeight: "600",
+              fontSize: "17px",
+            }}
             onClick={handleClose}
           >
-            No
+            Yes
           </Button>
         </DialogActions>
       </Dialog>

@@ -38,6 +38,9 @@
       "relation": "oneToMany",
       "target": "api::survey.survey",
       "mappedBy": "template"
+    },
+    "slug": {
+      "type": "uid"
     }
   }
 }

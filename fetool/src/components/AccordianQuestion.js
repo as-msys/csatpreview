@@ -2,15 +2,17 @@ import * as React from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Divider, Stack, Typography, Box } from "@mui/material";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import useSWR from "swr";
 import apiList from "../../apiRoutes/apiNames";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { styled } from "@mui/material/styles";
 
-const AccordionQuestion = () => {
+const AccordionQuestion = ({ choosenTemplate }) => {
   const { data: questionDetails, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[3]}?populate=%2A`
   );
@@ -27,6 +29,50 @@ const AccordionQuestion = () => {
     return filteredOnes;
   });
 
+  console.log(filteredQuestions);
+  const CustomExpandIcon = () => {
+    return (
+      <Box
+        sx={{
+          ".Mui-expanded & > .collapsIconWrapper": {
+            display: "none",
+          },
+          ".expandIconWrapper": {
+            display: "none",
+          },
+          ".Mui-expanded & > .expandIconWrapper": {
+            display: "flex",
+          },
+        }}
+      >
+        <Box className="expandIconWrapper">
+          <Typography
+            color="secondary"
+            sx={{ display: "inline", fontSize: "18px" }}
+          >
+            hide
+          </Typography>
+          <ArrowDropUpIcon style={{ color: "#ff4081" }} />
+        </Box>
+        <Box className="collapsIconWrapper" sx={{ display: "flex" }}>
+          <Typography color="secondary" sx={{ fontSize: "18px" }}>
+            show
+          </Typography>
+          <ArrowDropDownIcon style={{ color: "#ff4081" }} />
+        </Box>
+      </Box>
+    );
+  };
+
+  const AccordionSummaryStyled = styled(AccordionSummary)({
+    "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+      transform: "rotate(360deg)",
+    },
+    "& .MuiAccordionSummary-collapsIconWrapper.Mui-expanded": {
+      transform: "rotate(360deg)",
+    },
+  });
+
   return (
     <Box>
       <Typography sx={{ textAlign: "right", mr: -15 }}>
@@ -37,7 +83,7 @@ const AccordionQuestion = () => {
       </Typography>
       {filteredQuestions.map((question, index) => {
         return (
-          <Box sx={{ ml: 2 }}>
+          <Box sx={{ ml: 2 }} key={question.id}>
             <Accordion
               sx={{
                 mt: 2,
@@ -48,13 +94,8 @@ const AccordionQuestion = () => {
               }}
               defaultExpanded={index === 0 ? true : false}
             >
-              <AccordionSummary
-                expandIcon={
-                  <ArrowDropDownIcon
-                    fontSize="large"
-                    sx={{ color: "#ff4081" }}
-                  />
-                }
+              <AccordionSummaryStyled
+                expandIcon={<CustomExpandIcon />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
@@ -83,13 +124,14 @@ const AccordionQuestion = () => {
                     </Typography>
                   </Box>
                 </Stack>
-              </AccordionSummary>
+              </AccordionSummaryStyled>
               <Divider sx={{ mx: 2, opacity: 0.3 }} />
               <AccordionDetails>
                 <RadioGroup sx={{ ml: 2 }}>
                   {question.attributes.question_options.data.map((option) => {
                     return (
                       <FormControlLabel
+                        key={option.id}
                         label={option.attributes.label}
                         control={
                           <Radio

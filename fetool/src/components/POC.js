@@ -11,9 +11,11 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 
-const POC = () => {
+const POC = ({ setDisabled }) => {
   const router = useRouter();
   const { params } = router.query;
+  const [id, setId] = useState("");
+  const [active, setIsActive] = useState(false);
 
   const { data: clientDetails, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?populate=%2A`
@@ -32,6 +34,12 @@ const POC = () => {
     return filteredOnes;
   });
 
+  const matchId = (pocId) => {
+    setId(pocId);
+    setIsActive(!active);
+    setDisabled(active);
+  };
+
   return (
     <>
       <Typography variant="surveyVariant">
@@ -45,11 +53,16 @@ const POC = () => {
                 <Card
                   key={poc.id}
                   variant="outlined"
+                  onClick={() => matchId(poc.id)}
                   sx={{
                     borderRadius: "5px",
                     marginTop: "2rem",
                     marginLeft: "2rem",
                     width: "45%",
+                    bgcolor:
+                      active && id === poc.id
+                        ? "rgba(198,203,230,0.75)"
+                        : "none",
                   }}
                 >
                   <CardActionArea>
