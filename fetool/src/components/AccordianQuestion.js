@@ -13,8 +13,10 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { styled } from "@mui/material/styles";
 
 const AccordionQuestion = ({ choosenTemplate }) => {
+  console.log(choosenTemplate);
+
   const { data: questionDetails, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[3]}?populate=%2A`
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[3]}?filters[templates][name][$eq]=${choosenTemplate}&populate=question_option_type`
   );
   if (error)
     return (
@@ -23,11 +25,7 @@ const AccordionQuestion = ({ choosenTemplate }) => {
   if (!questionDetails)
     return <Typography variant="h4">"Loading..."</Typography>;
 
-  //Filtering the poc for the choosen project
-  const filteredQuestions = questionDetails.data.filter((question) => {
-    const filteredOnes = question.attributes.templates.data.length > 0;
-    return filteredOnes;
-  });
+  console.log(questionDetails.data);
 
   const CustomExpandIcon = () => {
     return (
@@ -76,11 +74,11 @@ const AccordionQuestion = ({ choosenTemplate }) => {
     <Box>
       <Typography sx={{ textAlign: "right", mr: -15 }}>
         <Typography variant="templateVariant">
-          {filteredQuestions.length}
+          {questionDetails.data.length}
         </Typography>{" "}
         questions
       </Typography>
-      {filteredQuestions.map((question, index) => {
+      {questionDetails.data?.map((question) => {
         return (
           <Box sx={{ ml: 2 }} key={question.id}>
             <Accordion
@@ -91,7 +89,6 @@ const AccordionQuestion = ({ choosenTemplate }) => {
                 borderRadius: "5px",
                 width: "115%",
               }}
-              defaultExpanded={index === 0 ? true : false}
             >
               <AccordionSummaryStyled
                 expandIcon={<CustomExpandIcon />}
@@ -127,7 +124,7 @@ const AccordionQuestion = ({ choosenTemplate }) => {
               <Divider sx={{ mx: 2, opacity: 0.3 }} />
               <AccordionDetails>
                 <RadioGroup sx={{ ml: 2 }}>
-                  {question.attributes.question_options.data.map((option) => {
+                  {/* {question.attributes.question_options.data.map((option) => {
                     return (
                       <FormControlLabel
                         key={option.id}
@@ -144,7 +141,7 @@ const AccordionQuestion = ({ choosenTemplate }) => {
                         }
                       />
                     );
-                  })}
+                  })} */}
                 </RadioGroup>
               </AccordionDetails>
             </Accordion>

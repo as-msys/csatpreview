@@ -18,7 +18,7 @@ const POC = ({ setDisabled }) => {
   const [active, setIsActive] = useState(false);
 
   const { data: clientDetails, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?populate=%2A`
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?filters[name][$eq]=${params[0]}&populate=point_of_contacts`
   );
   if (error)
     return (
@@ -27,12 +27,6 @@ const POC = ({ setDisabled }) => {
       </Typography>
     );
   if (!clientDetails) return <Typography variant="h4">"Loading..."</Typography>;
-
-  //Filtering the poc for the choosen project
-  const filteredPOC = clientDetails.data.filter((poc) => {
-    const filteredOnes = poc.attributes.name === params[0];
-    return filteredOnes;
-  });
 
   const matchId = (pocId) => {
     setId(pocId);
@@ -45,7 +39,7 @@ const POC = ({ setDisabled }) => {
       <Typography variant="surveyVariant">
         Please choose a point of contact to send a survey to
       </Typography>
-      {filteredPOC.map((client) => {
+      {clientDetails.data.map((client) => {
         return (
           <Box key={client.id}>
             {client.attributes.point_of_contacts.map((poc) => {

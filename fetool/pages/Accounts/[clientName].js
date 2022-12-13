@@ -20,6 +20,7 @@ import SurveyLogic from "../../src/components/SurveyLogic";
 
 const accountName = () => {
   const router = useRouter();
+
   const clientName = router.query.clientName;
 
   //Date Calculation
@@ -29,23 +30,15 @@ const accountName = () => {
 
   //API CALL
   const { data: projectDetails, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?populate=%2A`
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?filters[client][name][$eq]=${clientName}&populate=%2A`
   );
   if (error)
     return <Typography variant="h2">"An error has occured"</Typography>;
   if (!projectDetails)
     return <Typography variant="h4">"Loading..."</Typography>;
 
-  //Filtering the projects for the choosen client
-  const filteredProjects = projectDetails.data.filter((client) => {
-    //Retrieving only the project that is associated with the client from the pathname
-    const filteredOnes =
-      client.attributes.client.data.attributes.name === clientName;
-    return filteredOnes;
-  });
-
   const pendingSurveysList = SurveyLogic(
-    filteredProjects,
+    projectDetails.data,
     currentMonth,
     currentDay
   );

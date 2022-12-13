@@ -10,16 +10,14 @@ import { useRouter } from "next/router";
 
 const Accounts = () => {
   const router = useRouter();
-  const { data, error } = useSWR(
+  const { data: accountData, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cprojects`
   );
   if (error)
     return (
       <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
     );
-  if (!data) return <Typography variant="h4">"Loading..."</Typography>;
-
-  console.log(data);
+  if (!accountData) return <Typography variant="h4">"Loading..."</Typography>;
 
   //To remove the original paddings in the bottom
   const CardContentStyled = styled(CardContent)({
@@ -33,7 +31,7 @@ const Accounts = () => {
     <Box sx={{ m: 2 }}>
       <Typography variant="titleVariant">Accounts</Typography>
       <Grid container rowSpacing={2} columnSpacing={2} padding={2}>
-        {data.data.map((client) => (
+        {accountData.data.map((client) => (
           <Grid item md={3} key={client.id}>
             <Card
               variant="outlined"

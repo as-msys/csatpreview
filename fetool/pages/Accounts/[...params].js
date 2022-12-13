@@ -18,7 +18,7 @@ const projectName = () => {
   const projectNameInLowerCase = params[1].toLowerCase();
   const [activeStep, setActiveStep] = useState(0);
   const [disabled, setDisabled] = useState(true);
-  const [template, setTemplate] = React.useState("Template1");
+  const [template, setTemplate] = React.useState("");
 
   const handleChange = (event) => {
     setTemplate(event.target.value);
@@ -75,7 +75,7 @@ const projectName = () => {
             <Typography variant="surveyVariant">
               Please choose a template for your survey
             </Typography>
-            <SelectVariants template={template} handleChange={handleChange} />
+            <SelectVariants handleChange={handleChange} />
             <AccordionQuestion choosenTemplate={template} />
           </>
         )}

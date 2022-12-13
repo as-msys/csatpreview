@@ -39,11 +39,6 @@
       "relation": "manyToOne",
       "target": "api::client.client",
       "inversedBy": "surveys"
-    },
-    "client": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::client.client"
     }
   }
 }

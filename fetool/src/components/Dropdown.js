@@ -1,8 +1,21 @@
 import * as React from "react";
-import NativeSelect from "@mui/material/NativeSelect";
-import FormControl from "@mui/material/FormControl";
+import { FormControl, NativeSelect, Typography } from "@mui/material";
+import useSWR from "swr";
+import apiList from "../../apiRoutes/apiNames";
 
-const SelectLabels = ({ template, handleChange }) => {
+const SelectLabels = ({ handleChange }) => {
+  const { data: templateData, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[4]}`
+  );
+  if (error)
+    return (
+      <Typography variant="h2" sx={{ m: 2 }}>
+        "An error has occured"
+      </Typography>
+    );
+
+  if (!templateData) return <Typography variant="h4">"Loading..."</Typography>;
+
   return (
     <div>
       <FormControl
@@ -19,12 +32,15 @@ const SelectLabels = ({ template, handleChange }) => {
           fullWidth
           disableUnderline
           onClick={handleChange}
-          defaultValue={"Template1"}
           sx={{ fontWeight: "600", fontSize: "19px", ml: -1 }}
         >
-          <option value={"Template1"}>Template1</option>
-          <option value={"Template2"}>Template2</option>
-          <option value={"Template3"}>Template3</option>
+          {templateData.data.map((template) => {
+            return (
+              <option key={template.id} value={template.attributes.name}>
+                {template.attributes.name}
+              </option>
+            );
+          })}
         </NativeSelect>
       </FormControl>
     </div>
