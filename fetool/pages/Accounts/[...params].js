@@ -18,7 +18,7 @@ const projectName = () => {
   const projectNameInLowerCase = params[1].toLowerCase();
   const [activeStep, setActiveStep] = useState(0);
   const [disabled, setDisabled] = useState(true);
-  const [template, setTemplate] = React.useState("");
+  const [template, setTemplate] = React.useState("defaultText");
 
   const handleChange = (event) => {
     setTemplate(event.target.value);
@@ -52,6 +52,7 @@ const projectName = () => {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
     setDisabled(!disabled);
+    setTemplate("defaultText");
   };
 
   return (
@@ -67,6 +68,7 @@ const projectName = () => {
         handleBack={handleBack}
         steps={steps}
         disabled={disabled}
+        template={template}
       >
         {activeStep === 0 ? (
           <POC setDisabled={setDisabled} />

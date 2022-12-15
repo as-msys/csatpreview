@@ -32,8 +32,12 @@ const SelectLabels = ({ handleChange }) => {
           fullWidth
           disableUnderline
           onClick={handleChange}
+          defaultValue={"defaultText"}
           sx={{ fontWeight: "600", fontSize: "19px", ml: -1 }}
         >
+          <option value="defaultText" disabled>
+            Choose any of the below template
+          </option>
           {templateData.data.map((template) => {
             return (
               <option key={template.id} value={template.attributes.name}>

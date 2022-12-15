@@ -28,6 +28,7 @@ const HorizontalLabelPositionBelowStepper = ({
   activeStep,
   steps,
   disabled,
+  template,
 }) => {
   const router = useRouter();
   const { params = [] } = router.query;
@@ -55,7 +56,13 @@ const HorizontalLabelPositionBelowStepper = ({
           </Step>
         ))}
       </StyledStepper>
-      <Box sx={{ mt: 4, ml: -1.5, mb: activeStep === 0 ? 20 : 10 }}>
+      <Box
+        sx={{
+          mt: 4,
+          ml: -1.5,
+          mb: activeStep === 0 ? 20 : template === "defaultText" ? 45 : 10,
+        }}
+      >
         {children}
       </Box>
 
