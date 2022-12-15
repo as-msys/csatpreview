@@ -35,20 +35,19 @@ const AccordionQuestion = ({ choosenTemplate }) => {
   if (!questionDetails)
     return <Typography variant="h4">"Loading..."</Typography>;
 
-  // const myData = questionDetails.data.filter((question) => {
-  //   for (let i = 0; i < question.length; i++) {
-  //     if (
-  //       question.attributes.question_type.data.attributes.label === "Open Ended"
-  //     ) {
-  //       let temp = question[i];
-  //       question[i] = question[question.length - 1];
-  //       question[question.length - 1] = temp;
-  //     }
-  //     return question;
-  //   }
-  // });
-
-  // console.log("data=", myData);
+  //Logic to push the open Ended question to the end
+  for (let i = 0; i < questionDetails.data.length; i++) {
+    if (
+      questionDetails.data[i].attributes.question_type.data.attributes.label ===
+      "Open Ended"
+    ) {
+      //swapping the open Ended question with the last one
+      let temp = questionDetails.data[i];
+      questionDetails.data[i] =
+        questionDetails.data[questionDetails.data.length - 1];
+      questionDetails.data[questionDetails.data.length - 1] = temp;
+    }
+  }
 
   const CustomExpandIcon = () => {
     return (
