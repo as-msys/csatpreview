@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  StepLabel,
-  Step,
-  Stepper,
-  styled,
-  Box,
-  Button,
-  Typography,
-} from "@mui/material";
+import { StepLabel, Step, Stepper, styled, Box, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import PopupDialog from "./PopupDialog";
 
@@ -60,6 +52,7 @@ const HorizontalLabelPositionBelowStepper = ({
         sx={{
           mt: 4,
           ml: -1.5,
+          // (template === "defaultText")This is push the buttons to the bottom in the template selection page before sleecting a template
           mb: activeStep === 0 ? 20 : template === "defaultText" ? 45 : 10,
         }}
       >
@@ -101,16 +94,30 @@ const HorizontalLabelPositionBelowStepper = ({
           >
             CANCEL
           </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={disabled}
-            size="large"
-            sx={{ mb: 4 }}
-            onClick={() => nextStep()}
-          >
-            {activeStep === 0 ? "NEXT" : "SEND SURVEY"}
-          </Button>
+          {activeStep === 0 && (
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={disabled}
+              size="large"
+              sx={{ mb: 4 }}
+              onClick={() => nextStep()}
+            >
+              NEXT
+            </Button>
+          )}
+          {activeStep === 1 && (
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={template === "defaultText"}
+              size="large"
+              sx={{ mb: 4 }}
+              onClick={() => nextStep()}
+            >
+              SEND SURVEY
+            </Button>
+          )}
         </Box>
       </Box>
     </Box>
