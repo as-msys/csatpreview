@@ -21,12 +21,6 @@
       "type": "boolean",
       "default": false,
       "required": true
-    },
-    "employees": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::employee.employee",
-      "inversedBy": "user_types"
     }
   }
 }

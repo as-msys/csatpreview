@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "question_options",
+  "info": {
+    "singularName": "question-option",
+    "pluralName": "question-options",
+    "displayName": "QuestionOption",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "question_option_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::question-option-type.question-option-type"
+    },
+    "slug": {
+      "type": "uid"
+    }
+  }
+}

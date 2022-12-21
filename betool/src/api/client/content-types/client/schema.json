@@ -32,6 +32,9 @@
       "type": "component",
       "repeatable": true,
       "component": "point-of-contacts.poc"
+    },
+    "slug": {
+      "type": "uid"
     }
   }
 }

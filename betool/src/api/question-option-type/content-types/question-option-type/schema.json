@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "question_option_types",
+  "info": {
+    "singularName": "question-option-type",
+    "pluralName": "question-option-types",
+    "displayName": "QuestionOptionType"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "questions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::question.question",
+      "mappedBy": "question_option_type"
+    }
+  }
+}

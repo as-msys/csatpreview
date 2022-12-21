@@ -4,7 +4,8 @@
   "info": {
     "singularName": "employee",
     "pluralName": "employees",
-    "displayName": "Employee"
+    "displayName": "Employee",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -28,11 +29,10 @@
       "target": "api::project.project",
       "mappedBy": "team_members"
     },
-    "user_types": {
+    "user_type": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::user-type.user-type",
-      "inversedBy": "employees"
+      "relation": "oneToOne",
+      "target": "api::user-type.user-type"
     }
   }
 }
