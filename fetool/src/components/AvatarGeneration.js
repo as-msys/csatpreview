@@ -2,7 +2,9 @@
 
 //To generate the letters in Avatar
 const stringAvatar = (name) => {
-  let avatarName = name[0];
+  const length = Math.round(name.length / 2);
+  let avatarName = name[0] + name.toUpperCase()[length];
+
   if (name.indexOf(" ") >= 0) {
     const newName = name.split(" ");
     avatarName = newName[0][0] + newName[1][0];

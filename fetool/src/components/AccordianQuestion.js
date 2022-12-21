@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import { Divider, Stack, Typography, Box } from "@mui/material";
+import {
+  Divider,
+  Stack,
+  Typography,
+  Box,
+  FormControlLabel,
+  Checkbox,
+  Radio,
+} from "@mui/material";
 import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Radio from "@mui/material/Radio";
 import useSWR from "swr";
 import apiList from "../../apiRoutes/apiNames";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -94,12 +100,14 @@ const AccordionQuestion = ({ choosenTemplate }) => {
 
   return (
     <Box>
-      <Typography sx={{ textAlign: "right", mr: -15 }}>
-        <Typography variant="templateVariant">
-          {questionDetails.data.length}
-        </Typography>{" "}
-        questions
-      </Typography>
+      {choosenTemplate !== "defaultText" && (
+        <Typography sx={{ textAlign: "right", mr: -15 }}>
+          <Typography variant="templateVariant">
+            {questionDetails.data.length}
+          </Typography>{" "}
+          questions
+        </Typography>
+      )}
       {questionDetails.data?.map((question) => {
         return (
           <Box sx={{ ml: 2 }} key={question.id}>
@@ -107,7 +115,8 @@ const AccordionQuestion = ({ choosenTemplate }) => {
               onChange={() => {
                 setOpen(true);
                 makeAPIcall(
-                  question.attributes.question_option_type.data.attributes.label
+                  question.attributes.question_option_type.data?.attributes
+                    .label
                 );
               }}
               sx={{
@@ -138,34 +147,37 @@ const AccordionQuestion = ({ choosenTemplate }) => {
                       </span>
                     )}
                   </Typography>
-
-                  <Box sx={{ display: "flex", ml: 1.7 }}>
-                    <Typography
-                      sx={{ fontStyle: "italic", fontSize: "16px" }}
-                      color="#757575"
-                    >
-                      Option Type:
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontWeight: "bold",
-                        fontStyle: "italic",
-                        fontSize: "16px",
-                      }}
-                    >
-                      {
-                        question.attributes.question_option_type.data.attributes
-                          .label
-                      }
-                    </Typography>
-                  </Box>
+                  {/* Option type is not required for open Ended question */}
+                  {question.attributes.question_type.data.attributes.label !==
+                    "Open Ended" && (
+                    <Box sx={{ display: "flex", ml: 1.7 }}>
+                      <Typography
+                        sx={{ fontStyle: "italic", fontSize: "16px" }}
+                        color="#757575"
+                      >
+                        Option Type:
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: "bold",
+                          fontStyle: "italic",
+                          fontSize: "16px",
+                        }}
+                      >
+                        {
+                          question.attributes.question_option_type.data
+                            .attributes.label
+                        }
+                      </Typography>
+                    </Box>
+                  )}
                 </Stack>
               </AccordionSummaryStyled>
               <Divider sx={{ mx: 2, opacity: 0.3 }} />
               {open && (
                 <AccordionDetails>
-                  {question.attributes.question_type.data.attributes.label !==
-                  "Open Ended" ? (
+                  {question.attributes.question_type.data.attributes.label ===
+                  "Single Choice" ? (
                     <RadioGroup sx={{ ml: 2 }}>
                       {optionData?.map((option) => {
                         return (
@@ -182,6 +194,18 @@ const AccordionQuestion = ({ choosenTemplate }) => {
                                 }}
                               />
                             }
+                          />
+                        );
+                      })}
+                    </RadioGroup>
+                  ) : question.attributes.question_type.data.attributes
+                      .label === "Multiple Choices" ? (
+                    <RadioGroup sx={{ ml: 2 }}>
+                      {optionData?.map((option) => {
+                        return (
+                          <FormControlLabel
+                            control={<Checkbox checked={false} />}
+                            label={option.attributes.label}
                           />
                         );
                       })}

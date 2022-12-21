@@ -7,14 +7,7 @@ import BreadCrumbs from "../../src/components/BreadCrumbs";
 import InfoOutlined from "../../src/components/InfoOutlined";
 import CardHeaderDesign from "../../src/components/CardHeader";
 import NoData from "../../src/components/NoData";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Grid,
-  Drawer,
-} from "@mui/material";
+import { Card, CardContent, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SurveyLogic from "../../src/components/SurveyLogic";
 
@@ -88,9 +81,15 @@ const accountName = () => {
                   size="large"
                   sx={{ fontWeight: 700, color: "#FF4081" }}
                   onClick={() =>
-                    router.push(
-                      `/Accounts/${clientName}/${project.attributes.name}`
-                    )
+                    router.push({
+                      pathname: `/Accounts/${clientName}/${project.attributes.name}`,
+                      query: {
+                        surveyFrequency:
+                          project.attributes.survey_cadence.survey_frequency,
+                        daysLeft: project.attributes.sow_start_date,
+                        projectId: project.id,
+                      },
+                    })
                   }
                 >
                   View

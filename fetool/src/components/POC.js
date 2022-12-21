@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 
-const POC = ({ setDisabled }) => {
+const POC = ({ setDisabled, setName, setEmail }) => {
   const router = useRouter();
   const { params } = router.query;
   const [id, setId] = useState("");
@@ -28,7 +28,9 @@ const POC = ({ setDisabled }) => {
     );
   if (!clientDetails) return <Typography variant="h4">"Loading..."</Typography>;
 
-  const matchId = (pocId) => {
+  const matchId = (pocId, name, email) => {
+    setName(name);
+    setEmail(email);
     setId(pocId);
     setIsActive(!active);
     setDisabled(active);
@@ -47,12 +49,14 @@ const POC = ({ setDisabled }) => {
                 <Card
                   key={poc.id}
                   variant="outlined"
-                  onClick={() => matchId(poc.id)}
+                  onClick={(event) => {
+                    matchId(poc.id, poc.name, poc.email);
+                  }}
                   sx={{
                     borderRadius: "5px",
                     marginTop: "2rem",
                     marginLeft: "2rem",
-                    width: "45%",
+                    width: "50%",
                     bgcolor:
                       active && id === poc.id
                         ? "rgba(198,203,230,0.75)"

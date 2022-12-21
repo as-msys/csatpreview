@@ -1,5 +1,5 @@
 {
-  "name": "betool",
+  "name": "csat-be",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -10,7 +10,7 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-documentation": "^4.4.5",
+    "@strapi/plugin-documentation": "^4.5.4",
     "@strapi/plugin-i18n": "4.4.5",
     "@strapi/plugin-users-permissions": "4.4.5",
     "@strapi/strapi": "4.4.5",
@@ -21,7 +21,7 @@
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "0a1bf182-5c20-4d8d-854a-41d41c4d7cb1"
+    "uuid": "cac1f95d-6136-4375-a854-fdc4c9fe2786"
   },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",

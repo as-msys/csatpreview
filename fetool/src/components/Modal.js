@@ -22,6 +22,7 @@ const ModalBox = ({
   handleClose,
   employeeOfTheProject,
   countofTeamMembers,
+  headerData,
 }) => {
   return (
     <div>
@@ -31,7 +32,7 @@ const ModalBox = ({
             variant="h6"
             sx={{ ml: -3, mt: -1.5, px: 2, pb: 3, fontWeight: 700 }}
           >
-            Project Members({countofTeamMembers})
+            {headerData}({countofTeamMembers})
           </Typography>
           {employeeOfTheProject.map((employee) => {
             return (
@@ -42,6 +43,7 @@ const ModalBox = ({
 
                 <Typography variant="subtitle1" sx={{ mb: 0.5 }}>
                   {employee.attributes.employee_code}
+                  {employee.attributes.responseDeadlineDate}
                 </Typography>
                 <Divider sx={{ mb: 1, opacity: 0.7 }} />
               </Box>

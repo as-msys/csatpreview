@@ -3,43 +3,37 @@ import { Box, CardHeader, Drawer, Typography, Divider } from "@mui/material";
 import useSWR from "swr";
 import apiList from "../../../apiRoutes/apiNames";
 import AvatarLogo from "../AvatarLogo";
-import DividerText from "../DividerText";
+import DividerTextForProjects from "../DividerText";
+import DividerTextForSurveys from "../DividerTextForSurveys";
 import format from "date-fns/format";
+import { useRouter } from "next/router";
 
 const drawerWidth = "25rem";
 const month = new Date().toLocaleString("en-us", { month: "short" });
 const year = new Date().getFullYear();
 
-const PermanentDrawerRight = ({ project }) => {
-  const { data: projectDetails, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?populate=%2A`
+const PermanentDrawerRight = () => {
+  const router = useRouter();
+  const { params } = router.query;
+  const { data: projectData, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?filters[name][$eq]=${params[1]}&populate=%2A`
   );
-  if (error)
+  const { data: surveyData, surveyError } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[7]}?filters[project][name][$eq]=${params[1]}&populate=*`
+  );
+  if (error || surveyError)
     return (
       <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
     );
-  if (!projectDetails)
+  if (!projectData || !surveyData)
     return <Typography variant="h4">"Loading..."</Typography>;
 
-  //Filtering the poc for the choosen project
-  const projectData = projectDetails.data.filter((projectName) => {
-    const filteredOnes = projectName.attributes.name === project;
-    return filteredOnes;
-  });
-
-  const styles = {
-    width: drawerWidth,
-    "& .MuiDrawer-paper": {
-      width: drawerWidth,
-      boxSizing: "border-box",
-    },
-  };
+  const noOfSurveys = surveyData.data.length;
 
   return (
     <Box sx={{ display: "flex" }}>
       <Drawer
         sx={{
-          ...styles,
           width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
@@ -51,7 +45,7 @@ const PermanentDrawerRight = ({ project }) => {
         variant="permanent"
         anchor="right"
       >
-        {projectData.map((projectInfo) => {
+        {projectData?.data.map((projectInfo) => {
           return (
             <Box key={projectInfo.id}>
               <CardHeader
@@ -89,34 +83,19 @@ const PermanentDrawerRight = ({ project }) => {
                   {year}
                 </Typography>
               </Box>
-              <DividerText
-                project={project}
+              <DividerTextForProjects
+                project={projectInfo}
                 headerData={"Project Members"}
                 length={4}
               />
-              <Divider
-                textAlign="left"
-                sx={{
-                  fontSize: "17px",
-                  fontWeight: 600,
-                  color: "#3F51B5",
-                  marginBottom: "1rem",
-                  marginTop: 0,
-                }}
-              >
-                Past Surveys
-              </Divider>
-
-              <Typography
-                variant="body2"
-                color="#757575"
-                sx={{ mx: 6, fontWeight: "600" }}
-              >
-                There are no past surveys to display!
-              </Typography>
             </Box>
           );
         })}
+        <DividerTextForSurveys
+          survey={surveyData}
+          headerData={"Past Surveys"}
+          length={4}
+        />
       </Drawer>
     </Box>
   );

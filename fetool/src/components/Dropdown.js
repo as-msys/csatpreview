@@ -1,9 +1,10 @@
-import * as React from "react";
-import { FormControl, NativeSelect, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { FormControl, Select, Typography, MenuItem } from "@mui/material";
 import useSWR from "swr";
 import apiList from "../../apiRoutes/apiNames";
+import { styled } from "@mui/material/styles";
 
-const SelectLabels = ({ handleChange }) => {
+const SelectLabels = ({ handleChange, setId }) => {
   const { data: templateData, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[4]}`
   );
@@ -20,32 +21,48 @@ const SelectLabels = ({ handleChange }) => {
     <div>
       <FormControl
         sx={{
-          m: 2,
-          p: 3,
           width: "50%",
-          minWidth: 120,
-          borderRadius: "5px",
+          ml: 2.5,
+          mt: 1,
           bgcolor: "#f5f5f5",
+          borderRadius: "5px",
         }}
       >
-        <NativeSelect
-          fullWidth
-          disableUnderline
-          onClick={handleChange}
+        <Select
           defaultValue={"defaultText"}
-          sx={{ fontWeight: "600", fontSize: "19px", ml: -1 }}
+          onChange={handleChange}
+          sx={{
+            fontWeight: 600,
+            fontSize: "16px",
+            pt: "16px",
+            pb: "20px",
+            pl: "20px",
+            //For disbaling the border color
+            ".MuiOutlinedInput-notchedOutline": {
+              border: 0,
+            },
+          }}
         >
-          <option value="defaultText" disabled>
-            Choose any of the below template
-          </option>
+          <MenuItem
+            sx={{ p: 2, fontWeight: 600, fontSize: "16px" }}
+            value="defaultText"
+            disabled
+          >
+            <em>Choose any of the below template</em>
+          </MenuItem>
           {templateData.data.map((template) => {
             return (
-              <option key={template.id} value={template.attributes.name}>
+              <MenuItem
+                sx={{ p: 2, fontWeight: 600, fontSize: "16px" }}
+                key={template.id}
+                value={template.attributes.name}
+                onClick={() => setId(template.id)}
+              >
                 {template.attributes.name}
-              </option>
+              </MenuItem>
             );
           })}
-        </NativeSelect>
+        </Select>
       </FormControl>
     </div>
   );

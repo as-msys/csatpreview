@@ -20,7 +20,7 @@
       "targetField": "name"
     },
     "responseDeadlineDate": {
-      "type": "date"
+      "type": "datetime"
     },
     "project": {
       "type": "relation",
@@ -34,11 +34,15 @@
       "target": "api::survey-status.survey-status",
       "inversedBy": "surveys"
     },
+    "POC": {
+      "type": "component",
+      "repeatable": false,
+      "component": "point-of-contacts.poc"
+    },
     "template": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::client.client",
-      "inversedBy": "surveys"
+      "relation": "oneToOne",
+      "target": "api::template.template"
     }
   }
 }

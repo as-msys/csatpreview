@@ -16,6 +16,7 @@ const theme = createTheme({
       main: "rgba(0,0,0,0.26)",
     },
   },
+
   typography: {
     h3: {
       fontWeight: 400,

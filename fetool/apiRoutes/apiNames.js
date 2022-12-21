@@ -6,6 +6,7 @@ const apiList = [
   "templates",
   "question-options",
   "question_option_type",
+  "surveys",
 ];
 
 export default apiList;
