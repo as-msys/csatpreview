@@ -7,16 +7,22 @@ import { Card, CardContent, Typography, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CardHeaderDesign from "../../src/components/CardHeader";
 import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 
 const Accounts = () => {
   const router = useRouter();
-  const { data: accountData, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cprojects`
-  );
+  const token = parseCookies().jwt;
+
+  const { data: accountData, error } = useSWR([
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cprojects`,
+    token,
+  ]);
+
   if (error)
     return (
       <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
     );
+
   if (!accountData) return <Typography variant="h4">"Loading..."</Typography>;
 
   //To remove the original paddings in the bottom
@@ -31,7 +37,7 @@ const Accounts = () => {
     <Box sx={{ m: 2 }}>
       <Typography variant="titleVariant">Accounts</Typography>
       <Grid container rowSpacing={2} columnSpacing={2} padding={2}>
-        {accountData.data.map((client) => (
+        {accountData?.map((client) => (
           <Grid item md={3} key={client.id}>
             <Card
               variant="outlined"

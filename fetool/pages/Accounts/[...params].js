@@ -12,15 +12,17 @@ import { toast } from "react-toastify";
 import { stringAvatar } from "../../src/components/AvatarGeneration";
 import apiList from "../../apiRoutes/apiNames";
 import axios from "axios";
+import { parseCookies } from "nookies";
 
 const steps = ["Point of Contact", "Survey Template"];
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const projectName = () => {
   const router = useRouter();
   const { params } = router.query;
 
-  const projectNameInLowerCase = params[1].toLowerCase();
+  //To get jwt
+  const token = parseCookies().jwt;
+
   const [activeStep, setActiveStep] = useState(0);
   const [disabled, setDisabled] = useState(true);
   const [template, setTemplate] = React.useState("defaultText");
@@ -80,22 +82,30 @@ const projectName = () => {
   const handlePostRequest = async () => {
     //NEXT_PUBLIC as prefix to access it from clientside
     await axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/${apiList[7]}?populate=%2A`, {
-        //Makesure to add id's(not string) in order to post the relationship data in the backend
-        data: {
-          name: surveyName,
-          slug: slugName,
-          responseDeadlineDate: deadline,
-          project: projectId,
-          survey_status: 1,
-          template: templateId,
-          POC: {
-            id: currentDate.getTime(),
-            name: name,
-            email: email,
+      .post(
+        `${process.env.NEXT_PUBLIC_API_URL}/${apiList[7]}?populate=%2A`,
+        {
+          //Makesure to add id's(not string) in order to post the relationship data in the backend
+          data: {
+            name: surveyName,
+            slug: slugName,
+            responseDeadlineDate: deadline,
+            project: projectId,
+            survey_status: 1,
+            template: templateId,
+            POC: {
+              id: currentDate.getTime(),
+              name: name,
+              email: email,
+            },
           },
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         // Handle success.
         router.push(`/Accounts/${params[0]}`);

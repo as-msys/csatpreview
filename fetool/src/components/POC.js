@@ -10,6 +10,7 @@ import {
   Box,
 } from "@mui/material";
 import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 
 const POC = ({ setDisabled, setName, setEmail }) => {
   const router = useRouter();
@@ -17,9 +18,12 @@ const POC = ({ setDisabled, setName, setEmail }) => {
   const [id, setId] = useState("");
   const [active, setIsActive] = useState(false);
 
-  const { data: clientDetails, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?filters[name][$eq]=${params[0]}&populate=point_of_contacts`
-  );
+  const token = parseCookies().jwt;
+
+  const { data: clientDetails, error } = useSWR([
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?filters[name][$eq]=${params[0]}&populate=point_of_contacts`,
+    token,
+  ]);
   if (error)
     return (
       <Typography variant="h2" sx={{ m: 2 }}>
@@ -41,7 +45,7 @@ const POC = ({ setDisabled, setName, setEmail }) => {
       <Typography variant="surveyVariant">
         Please choose a point of contact to send a survey to
       </Typography>
-      {clientDetails.data.map((client) => {
+      {clientDetails.map((client) => {
         return (
           <Box key={client.id}>
             {client.attributes.point_of_contacts.map((poc) => {

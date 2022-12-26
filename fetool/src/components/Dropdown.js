@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { FormControl, Select, Typography, MenuItem } from "@mui/material";
 import useSWR from "swr";
 import apiList from "../../apiRoutes/apiNames";
-import { styled } from "@mui/material/styles";
+import { parseCookies } from "nookies";
 
 const SelectLabels = ({ handleChange, setId }) => {
-  const { data: templateData, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[4]}`
-  );
+  const token = parseCookies().jwt;
+
+  const { data: templateData, error } = useSWR([
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[4]}`,
+    token,
+  ]);
   if (error)
     return (
       <Typography variant="h2" sx={{ m: 2 }}>
@@ -50,7 +53,7 @@ const SelectLabels = ({ handleChange, setId }) => {
           >
             <em>Choose any of the below template</em>
           </MenuItem>
-          {templateData.data.map((template) => {
+          {templateData.map((template) => {
             return (
               <MenuItem
                 sx={{ p: 2, fontWeight: 600, fontSize: "16px" }}

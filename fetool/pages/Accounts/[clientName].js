@@ -10,11 +10,13 @@ import NoData from "../../src/components/NoData";
 import { Card, CardContent, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SurveyLogic from "../../src/components/SurveyLogic";
+import { parseCookies } from "nookies";
 
 const accountName = () => {
   const router = useRouter();
-
   const clientName = router.query.clientName;
+
+  const token = parseCookies().jwt;
 
   //Date Calculation
   const date = new Date();
@@ -22,16 +24,17 @@ const accountName = () => {
   let currentMonth = date.getMonth() + 1;
 
   //API CALL
-  const { data: projectDetails, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?filters[client][name][$eq]=${clientName}&populate=%2A`
-  );
+  const { data: projectDetails, error } = useSWR([
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?filters[client][name][$eq]=${clientName}&populate=%2A`,
+    token,
+  ]);
   if (error)
     return <Typography variant="h2">"An error has occured"</Typography>;
   if (!projectDetails)
     return <Typography variant="h4">"Loading..."</Typography>;
 
   const pendingSurveysList = SurveyLogic(
-    projectDetails.data,
+    projectDetails,
     currentMonth,
     currentDay
   );

@@ -7,7 +7,6 @@ const DividerTextForSurveys = ({ survey, headerData, length }) => {
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
 
-  console.log(survey);
   return (
     <Box key={survey.id}>
       <Divider
@@ -20,10 +19,10 @@ const DividerTextForSurveys = ({ survey, headerData, length }) => {
           marginTop: 0,
         }}
       >
-        {headerData}({survey.data.length})
+        {headerData}({survey.length})
       </Divider>
-      {survey.data.length ? (
-        survey.data.slice(0, length).map((surveyItem) => {
+      {survey.length ? (
+        survey.slice(0, length).map((surveyItem) => {
           return (
             <Box sx={{ ml: 3, mr: 2 }} key={surveyItem.id}>
               <Typography variant="body2">
@@ -41,27 +40,28 @@ const DividerTextForSurveys = ({ survey, headerData, length }) => {
           There are no past surveys to display!
         </Typography>
       )}
-
-      <Button
-        variant="text"
-        color="secondary"
-        sx={{
-          ml: 35,
-          textTransform: "none",
-          fontSize: "15px",
-          mt: -1,
-        }}
-        onClick={handleOpen}
-      >
-        View all
-      </Button>
+      {survey.length ? (
+        <Button
+          variant="text"
+          color="secondary"
+          sx={{
+            ml: 35,
+            textTransform: "none",
+            fontSize: "15px",
+            mt: -1,
+          }}
+          onClick={handleOpen}
+        >
+          View all
+        </Button>
+      ) : null}
       {openModal && (
         <Modal
           openModal={openModal}
           handleClose={handleClose}
           headerData={"Past Surveys"}
-          countofTeamMembers={survey.data.length}
-          employeeOfTheProject={survey.data}
+          countofTeamMembers={survey.length}
+          employeeOfTheProject={survey}
         />
       )}
     </Box>

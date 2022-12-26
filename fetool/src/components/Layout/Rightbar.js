@@ -7,6 +7,7 @@ import DividerTextForProjects from "../DividerText";
 import DividerTextForSurveys from "../DividerTextForSurveys";
 import format from "date-fns/format";
 import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 
 const drawerWidth = "25rem";
 const month = new Date().toLocaleString("en-us", { month: "short" });
@@ -15,12 +16,17 @@ const year = new Date().getFullYear();
 const PermanentDrawerRight = () => {
   const router = useRouter();
   const { params } = router.query;
-  const { data: projectData, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?filters[name][$eq]=${params[1]}&populate=%2A`
-  );
-  const { data: surveyData, surveyError } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[7]}?filters[project][name][$eq]=${params[1]}&populate=*`
-  );
+
+  const token = parseCookies().jwt;
+
+  const { data: projectData, error } = useSWR([
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?filters[name][$eq]=${params[1]}&populate=%2A`,
+    token,
+  ]);
+  const { data: surveyData, surveyError } = useSWR([
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[7]}?filters[project][name][$eq]=${params[1]}&populate=*`,
+    token,
+  ]);
   if (error || surveyError)
     return (
       <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
@@ -28,7 +34,7 @@ const PermanentDrawerRight = () => {
   if (!projectData || !surveyData)
     return <Typography variant="h4">"Loading..."</Typography>;
 
-  const noOfSurveys = surveyData.data.length;
+  const noOfSurveys = surveyData.length;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -45,7 +51,7 @@ const PermanentDrawerRight = () => {
         variant="permanent"
         anchor="right"
       >
-        {projectData?.data.map((projectInfo) => {
+        {projectData?.map((projectInfo) => {
           return (
             <Box key={projectInfo.id}>
               <CardHeader

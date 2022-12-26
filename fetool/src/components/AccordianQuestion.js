@@ -17,23 +17,28 @@ import apiList from "../../apiRoutes/apiNames";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { styled } from "@mui/material/styles";
-import axios from "axios";
 import MultilineTextFields from "./openEnded";
+import axios from "axios";
+import { parseCookies } from "nookies";
 
 const AccordionQuestion = ({ choosenTemplate }) => {
   const [open, setOpen] = useState(false);
   const [optionData, setOptionData] = useState([]);
 
+  const token = parseCookies().jwt;
+
   const makeAPIcall = async (optionType) => {
     const resultedData = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/${apiList[5]}?filters[question_option_type][label][$eq]=${optionType}&sort=value&populate=%2A`
+      `${process.env.NEXT_PUBLIC_API_URL}/${apiList[5]}?filters[question_option_type][label][$eq]=${optionType}&sort=value&populate=%2A`,
+      { headers: { Authorization: "Bearer " + token } }
     );
     setOptionData(resultedData.data.data);
   };
 
-  const { data: questionDetails, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[3]}?filters[templates][name][$eq]=${choosenTemplate}&populate=question_option_type,question_type`
-  );
+  const { data: questionDetails, error } = useSWR([
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[3]}?filters[templates][name][$eq]=${choosenTemplate}&populate=question_option_type,question_type`,
+    token,
+  ]);
   if (error)
     return (
       <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
@@ -42,16 +47,15 @@ const AccordionQuestion = ({ choosenTemplate }) => {
     return <Typography variant="h4">"Loading..."</Typography>;
 
   //Logic to push the open Ended question to the end
-  for (let i = 0; i < questionDetails.data.length; i++) {
+  for (let i = 0; i < questionDetails.length; i++) {
     if (
-      questionDetails.data[i].attributes.question_type.data.attributes.label ===
+      questionDetails[i].attributes.question_type.data.attributes.label ===
       "Open Ended"
     ) {
       //swapping the open Ended question with the last one
-      let temp = questionDetails.data[i];
-      questionDetails.data[i] =
-        questionDetails.data[questionDetails.data.length - 1];
-      questionDetails.data[questionDetails.data.length - 1] = temp;
+      let temp = questionDetails[i];
+      questionDetails[i] = questionDetails[questionDetails.length - 1];
+      questionDetails[questionDetails.length - 1] = temp;
     }
   }
 
@@ -103,15 +107,16 @@ const AccordionQuestion = ({ choosenTemplate }) => {
       {choosenTemplate !== "defaultText" && (
         <Typography sx={{ textAlign: "right", mr: -15 }}>
           <Typography variant="templateVariant">
-            {questionDetails.data.length}
+            {questionDetails.length}
           </Typography>{" "}
           questions
         </Typography>
       )}
-      {questionDetails.data?.map((question) => {
+      {questionDetails?.map((question) => {
         return (
           <Box sx={{ ml: 2 }} key={question.id}>
             <Accordion
+              key={question.id}
               onChange={() => {
                 setOpen(true);
                 makeAPIcall(
