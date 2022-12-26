@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 import { Drawer, Box, Typography } from "@mui/material";
 import LogoHeader from "../LogoHeader";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 const drawerWidth = "17rem"; //240px/8=15rem
 
 const Sidebar = ({ children }) => {
+  const [user, setUser] = useState("");
   const router = useRouter();
 
   const delay = "3000";
@@ -32,6 +33,12 @@ const Sidebar = ({ children }) => {
       window.location = "/";
     }, delay);
   };
+
+  useEffect(() => {
+    // Perform localStorage action
+    const username = localStorage.getItem("username");
+    setUser(username);
+  }, []);
 
   const styles = {
     width: drawerWidth,
@@ -118,14 +125,24 @@ const Sidebar = ({ children }) => {
             }}
           >
             <PersonIcon sx={{ mt: 0, ml: 1 }} />
-            <Typography variant="subtitle1" sx={{ mb: 4, px: 1 }}>
-              Manager
+            <Typography
+              variant="subtitle1"
+              sx={{
+                mb: 4,
+                px: 1,
+                fontWeight: "600",
+                color: "#000000",
+                fontSize: "16px",
+              }}
+            >
+              {user}
             </Typography>
             <IconButton
               onClick={handleLogOut}
               sx={{
                 ml: "4rem",
                 mt: -1.5,
+                color: "#000000",
                 width: "50px",
                 height: "50px",
               }}

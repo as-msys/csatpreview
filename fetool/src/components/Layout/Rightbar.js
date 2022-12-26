@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, CardHeader, Drawer, Typography, Divider } from "@mui/material";
 import useSWR from "swr";
 import apiList from "../../../apiRoutes/apiNames";
@@ -6,7 +6,7 @@ import AvatarLogo from "../AvatarLogo";
 import DividerTextForProjects from "../DividerText";
 import DividerTextForSurveys from "../DividerTextForSurveys";
 import format from "date-fns/format";
-import { useRouter } from "next/router";
+import { useRouter, isReady } from "next/router";
 import { parseCookies } from "nookies";
 
 const drawerWidth = "25rem";
@@ -14,17 +14,26 @@ const month = new Date().toLocaleString("en-us", { month: "short" });
 const year = new Date().getFullYear();
 
 const PermanentDrawerRight = () => {
+  const [project, setProject] = useState("");
   const router = useRouter();
-  const { params } = router.query;
+
+  useEffect(() => {
+    if (router.isReady) {
+      // Code using query
+      const { params } = router.query;
+
+      setProject(params[1]);
+    }
+  }, [router.isReady]);
 
   const token = parseCookies().jwt;
 
   const { data: projectData, error } = useSWR([
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?filters[name][$eq]=${params[1]}&populate=%2A`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?filters[name][$eq]=${project}&populate=%2A`,
     token,
   ]);
   const { data: surveyData, surveyError } = useSWR([
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[7]}?filters[project][name][$eq]=${params[1]}&populate=*`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[7]}?filters[project][name][$eq]=${project}&populate=*`,
     token,
   ]);
   if (error || surveyError)

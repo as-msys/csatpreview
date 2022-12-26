@@ -12,16 +12,14 @@ import {
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 
-const POC = ({ setDisabled, setName, setEmail }) => {
-  const router = useRouter();
-  const { params } = router.query;
+const POC = ({ setDisabled, setName, setEmail, accountName }) => {
   const [id, setId] = useState("");
   const [active, setIsActive] = useState(false);
 
   const token = parseCookies().jwt;
 
   const { data: clientDetails, error } = useSWR([
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?filters[name][$eq]=${params[0]}&populate=point_of_contacts`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?filters[name][$eq]=${accountName}&populate=point_of_contacts`,
     token,
   ]);
   if (error)

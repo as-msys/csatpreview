@@ -57,17 +57,11 @@ export default function CustomizedTables() {
   };
 
   const token = parseCookies().jwt;
-  const fetch = (url, token) => {
-    const response = axios.get(url, {
-      headers: { Authorization: "Bearer " + token },
-    });
-    return response;
-  };
 
-  const { data: surveyData, error } = useSWR(
-    [`${process.env.NEXT_PUBLIC_API_URL}/${apiList[7]}?populate=%2A`, token],
-    fetch
-  );
+  const { data: surveyData, error } = useSWR([
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[7]}?populate=%2A`,
+    token,
+  ]);
   if (error)
     return (
       <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
@@ -137,7 +131,7 @@ export default function CustomizedTables() {
               </TableRow>
             </TableHead>
             <TableBody sx={{ mb: 1 }}>
-              {surveyData.data.data.map((row) => (
+              {surveyData.map((row) => (
                 <StyledTableRow key={row.id}>
                   <StyledTableCell component="th" scope="row">
                     {row.attributes.name}

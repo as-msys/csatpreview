@@ -15,7 +15,6 @@ import heroImage from "../assets/heroImage.png";
 import { parseCookies } from "nookies";
 
 const Login = () => {
-  const [username, setUserName] = useState("");
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -46,7 +45,7 @@ const Login = () => {
           password: "",
         });
 
-        setUserName(response.data.user.username);
+        localStorage.setItem("username", response.data.user.username);
 
         Router.push("/Accounts");
       })

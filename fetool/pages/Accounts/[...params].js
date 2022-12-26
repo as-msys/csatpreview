@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
+import { useRouter, isReady } from "next/router";
 import BreadCrumbs from "../../src/components/BreadCrumbs";
 import ProjectDetailHeader from "../../src/components/pageHeader/ProjectDetailHeader";
 import HorizontalLabelPositionBelowStepper from "../../src/components/Stepper";
@@ -18,7 +18,17 @@ const steps = ["Point of Contact", "Survey Template"];
 
 const projectName = () => {
   const router = useRouter();
-  const { params } = router.query;
+  const [account, setAccount] = useState("");
+  const [project, setProject] = useState("");
+
+  useEffect(() => {
+    if (router.isReady) {
+      // Code using query
+      const { params } = router.query;
+      setAccount(params[0]);
+      setProject(params[1]);
+    }
+  }, [router.isReady]);
 
   //To get jwt
   const token = parseCookies().jwt;
@@ -53,9 +63,9 @@ const projectName = () => {
 
   //To generate the name of the survey
   const currentDate = new Date();
-  const surveyName = `${stringAvatar(params[0])}-${
-    params[1]
-  }-${currentDate.getTime()}`;
+  const surveyName = `${stringAvatar(
+    account
+  )}-${project}-${currentDate.getTime()}`;
 
   //To generate the slug Name
   const slugName = surveyName.split(" ").join("-").toLowerCase();
@@ -137,10 +147,10 @@ const projectName = () => {
 
   return (
     <>
-      <BreadCrumbs pathOfClient={params[0]} pathOfProject={params[1]} />
+      <BreadCrumbs pathOfClient={account} pathOfProject={project} />
       <ProjectDetailHeader />
 
-      <Rightbar project={params[1]} />
+      <Rightbar project={project} />
 
       <HorizontalLabelPositionBelowStepper
         activeStep={activeStep}
@@ -153,6 +163,7 @@ const projectName = () => {
         {activeStep === 0 ? (
           <POC
             setDisabled={setDisabled}
+            accountName={account}
             setName={setName}
             setEmail={setEmail}
           />
