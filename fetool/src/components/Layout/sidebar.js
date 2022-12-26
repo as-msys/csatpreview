@@ -63,9 +63,11 @@ const Sidebar = ({ children }) => {
       path: "/notifications",
     },
   ];
+
   return (
     <Box style={{ display: "flex" }}>
       {/* conditional rendering of drawer */}
+
       {children.type.name !== "Home" && (
         <Drawer
           variant="permanent"

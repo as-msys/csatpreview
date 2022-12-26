@@ -13,8 +13,10 @@
     "@strapi/plugin-documentation": "^4.5.4",
     "@strapi/plugin-i18n": "4.4.5",
     "@strapi/plugin-users-permissions": "4.4.5",
+    "@strapi/provider-email-sendgrid": "^4.5.4",
     "@strapi/strapi": "4.4.5",
     "better-sqlite3": "7.4.6",
+    "sendmail": "^1.6.1",
     "strapi-plugin-email-designer": "^2.1.1"
   },
   "author": {

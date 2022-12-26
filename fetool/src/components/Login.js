@@ -18,6 +18,8 @@ const Login = () => {
     username: "",
     password: "",
   });
+
+  //Visibility icon of the password
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -35,9 +37,11 @@ const Login = () => {
         // Handle success.
         toast.success("Logged in Successfully");
         setCookie(null, "jwt", response.data.jwt, {
-          maxAge: 30 * 24 * 60 * 60,
+          maxAge: 24 * 60 * 60,
           path: "/",
         });
+        console.log(response);
+
         //To clear the data after storing it in database
         setFormData({
           username: "",

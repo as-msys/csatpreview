@@ -58,6 +58,7 @@ const theme = createTheme({
       fontWeight: 400,
       fontSize: "2.5rem",
       marginLeft: "1.5rem",
+      marginTop: "1rem",
     },
     body2: {
       fontWeight: 500,

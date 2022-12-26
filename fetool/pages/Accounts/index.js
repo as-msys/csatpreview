@@ -7,12 +7,23 @@ import { Card, CardContent, Typography, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CardHeaderDesign from "../../src/components/CardHeader";
 import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 
 const Accounts = () => {
   const router = useRouter();
+
+  // const token = parseCookies().jwt;
+  // const fetch = async (url, token) => {
+  //   const response = await axios.get(url, {
+  //     headers: { Authorization: "Bearer " + token },
+  //   });
+  //   return response.data;
+  // };
+
   const { data: accountData, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cprojects`
   );
+
   if (error)
     return (
       <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
