@@ -8,7 +8,6 @@ import theme from "../src/components/theme";
 import Layout from "../src/components/Layout/sidebar";
 import { SWRConfig } from "swr";
 import axios from "axios";
-import { parseCookies } from "nookies";
 
 const fetcher = async (url, token) => {
   const response = await axios.get(url, {

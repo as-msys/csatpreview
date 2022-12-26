@@ -15,11 +15,24 @@ import PersonIcon from "@mui/icons-material/Person";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
+import { destroyCookie } from "nookies";
+import { toast } from "react-toastify";
 
 const drawerWidth = "17rem"; //240px/8=15rem
 
 const Sidebar = ({ children }) => {
   const router = useRouter();
+
+  const delay = "3000";
+
+  const handleLogOut = () => {
+    destroyCookie(null, "jwt");
+    toast.success("Logged out Successfully!");
+    window.setTimeout(function () {
+      window.location = "/";
+    }, delay);
+  };
+
   const styles = {
     width: drawerWidth,
     "& .MuiDrawer-paper": {
@@ -63,6 +76,7 @@ const Sidebar = ({ children }) => {
       path: "/notifications",
     },
   ];
+
   return (
     <Box style={{ display: "flex" }}>
       {/* conditional rendering of drawer */}
@@ -108,6 +122,7 @@ const Sidebar = ({ children }) => {
               Manager
             </Typography>
             <IconButton
+              onClick={handleLogOut}
               sx={{
                 ml: "4rem",
                 mt: -1.5,

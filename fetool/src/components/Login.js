@@ -12,8 +12,10 @@ import { toast } from "react-toastify";
 import LogoHeader from "../components/LogoHeader";
 import Image from "next/image";
 import heroImage from "../assets/heroImage.png";
+import { parseCookies } from "nookies";
 
 const Login = () => {
+  const [username, setUserName] = useState("");
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -35,7 +37,7 @@ const Login = () => {
         // Handle success.
         toast.success("Logged in Successfully");
         setCookie(null, "jwt", response.data.jwt, {
-          maxAge: 30 * 24 * 60 * 60,
+          maxAge: 24 * 60 * 60,
           path: "/",
         });
         //To clear the data after storing it in database
@@ -43,6 +45,8 @@ const Login = () => {
           username: "",
           password: "",
         });
+
+        setUserName(response.data.user.username);
 
         Router.push("/Accounts");
       })

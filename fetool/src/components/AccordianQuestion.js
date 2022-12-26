@@ -116,7 +116,6 @@ const AccordionQuestion = ({ choosenTemplate }) => {
         return (
           <Box sx={{ ml: 2 }} key={question.id}>
             <Accordion
-              key={question.id}
               onChange={() => {
                 setOpen(true);
                 makeAPIcall(
@@ -209,6 +208,7 @@ const AccordionQuestion = ({ choosenTemplate }) => {
                       {optionData?.map((option) => {
                         return (
                           <FormControlLabel
+                            key={option.id}
                             control={<Checkbox checked={false} />}
                             label={option.attributes.label}
                           />
