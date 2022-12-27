@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import LogoHeader from "../components/LogoHeader";
 import Image from "next/image";
 import heroImage from "../assets/heroImage.png";
+import { parseCookies } from "nookies";
 
 const Login = () => {
   const [formData, setFormData] = useState({

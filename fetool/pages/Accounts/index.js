@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
 import { Box } from "@mui/system";
 import Grid from "@mui/material/Grid";
 import useSWR from "swr";
@@ -13,13 +13,6 @@ import { toast } from "react-toastify";
 const Accounts = () => {
   const router = useRouter();
   const token = parseCookies().jwt;
-  const [loggedInUser, setLoggedInUser] = useState("");
-
-  useEffect(() => {
-    // Perform localStorage action
-    const username = localStorage.getItem("username");
-    setLoggedInUser(username);
-  }, []);
 
   const { data: accountData, error } = useSWR([
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cprojects`,
@@ -33,15 +26,6 @@ const Accounts = () => {
 
   if (!accountData) return <Typography variant="h4">"Loading..."</Typography>;
 
-  const filteredAccountData = accountData.filter((account) => {
-    const filteredAccounts =
-      account.attributes.delivery_head.data.attributes.username ===
-      loggedInUser;
-    return filteredAccounts;
-  });
-
-  console.log(filteredAccountData);
-
   //To remove the original paddings in the bottom
   const CardContentStyled = styled(CardContent)({
     //MuiCardContent-root:last-child
@@ -54,7 +38,7 @@ const Accounts = () => {
     <Box sx={{ m: 2 }}>
       <Typography variant="titleVariant">Accounts</Typography>
       <Grid container rowSpacing={2} columnSpacing={2} padding={2}>
-        {filteredAccountData?.map((client) => (
+        {accountData?.map((client) => (
           <Grid item md={3} key={client.id}>
             <Card
               variant="outlined"
@@ -66,9 +50,7 @@ const Accounts = () => {
             >
               <CardHeaderDesign
                 clientName={client.attributes.name}
-                pmName={
-                  client.attributes.delivery_head.data.attributes.username
-                }
+                pmName={client.attributes.delivery_head.data.attributes.name}
               />
               <CardContentStyled
                 style={{

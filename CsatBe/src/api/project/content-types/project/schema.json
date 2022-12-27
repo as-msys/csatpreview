@@ -36,7 +36,7 @@
     "project_manager": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "api::employee.employee"
     },
     "team_members": {
       "type": "relation",

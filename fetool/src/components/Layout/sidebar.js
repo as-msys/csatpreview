@@ -28,7 +28,6 @@ const Sidebar = ({ children }) => {
 
   const handleLogOut = () => {
     destroyCookie(null, "jwt");
-    localStorage.removeItem("username");
     toast.success("Logged out Successfully!");
     window.setTimeout(function () {
       window.location = "/";
@@ -39,7 +38,7 @@ const Sidebar = ({ children }) => {
     // Perform localStorage action
     const username = localStorage.getItem("username");
     setUser(username);
-  }, [user]);
+  }, []);
 
   const styles = {
     width: drawerWidth,
@@ -120,32 +119,29 @@ const Sidebar = ({ children }) => {
             style={{
               position: "fixed",
               bottom: "1%",
+              margin: "1rem",
               display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
+              justifyContent: "space-around",
             }}
           >
-            <Box sx={{ display: "flex" }}>
-              <PersonIcon />
-              <Typography
-                variant="subtitle1"
-                sx={{
-                  mb: 4,
-
-                  px: 1,
-                  fontWeight: "600",
-                  color: "#000000",
-                  fontSize: "16px",
-                }}
-              >
-                {user}
-              </Typography>
-            </Box>
+            <PersonIcon sx={{ mt: 0, ml: 1 }} />
+            <Typography
+              variant="subtitle1"
+              sx={{
+                mb: 4,
+                px: 1,
+                fontWeight: "600",
+                color: "#000000",
+                fontSize: "16px",
+              }}
+            >
+              {user}
+            </Typography>
             <IconButton
               onClick={handleLogOut}
               sx={{
+                ml: "4rem",
                 mt: -1.5,
-                ml: 10,
                 color: "#000000",
                 width: "50px",
                 height: "50px",
