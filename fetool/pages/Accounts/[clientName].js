@@ -28,8 +28,11 @@ const accountName = () => {
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[2]}?filters[client][name][$eq]=${clientName}&populate=%2A`,
     token,
   ]);
-  if (error)
-    return <Typography variant="h2">"An error has occured"</Typography>;
+  if (error) {
+    router.push("/");
+    toast.error(error.response.data.error.message);
+  }
+
   if (!projectDetails)
     return <Typography variant="h4">"Loading..."</Typography>;
 

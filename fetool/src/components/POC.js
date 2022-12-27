@@ -22,12 +22,10 @@ const POC = ({ setDisabled, setName, setEmail, accountName }) => {
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?filters[name][$eq]=${accountName}&populate=point_of_contacts`,
     token,
   ]);
-  if (error)
-    return (
-      <Typography variant="h2" sx={{ m: 2 }}>
-        "An error has occured"
-      </Typography>
-    );
+  if (error) {
+    router.push("/");
+    toast.error(error.response.data.error.message);
+  }
   if (!clientDetails) return <Typography variant="h4">"Loading..."</Typography>;
 
   const matchId = (pocId, name, email) => {

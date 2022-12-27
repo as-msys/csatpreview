@@ -11,13 +11,9 @@ const SelectLabels = ({ handleChange, setId }) => {
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[4]}`,
     token,
   ]);
-  if (error)
-    return (
-      <Typography variant="h2" sx={{ m: 2 }}>
-        "An error has occured"
-      </Typography>
-    );
-
+  if (error) {
+    toast.error(error.response.data.error.message);
+  }
   if (!templateData) return <Typography variant="h4">"Loading..."</Typography>;
 
   return (

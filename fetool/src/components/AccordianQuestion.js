@@ -39,10 +39,10 @@ const AccordionQuestion = ({ choosenTemplate }) => {
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[3]}?filters[templates][name][$eq]=${choosenTemplate}&populate=question_option_type,question_type`,
     token,
   ]);
-  if (error)
-    return (
-      <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
-    );
+  if (error) {
+    toast.error(error.response.data.error.message);
+  }
+
   if (!questionDetails)
     return <Typography variant="h4">"Loading..."</Typography>;
 

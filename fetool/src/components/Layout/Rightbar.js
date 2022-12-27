@@ -36,10 +36,14 @@ const PermanentDrawerRight = () => {
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[7]}?filters[project][name][$eq]=${project}&populate=*`,
     token,
   ]);
-  if (error || surveyError)
-    return (
-      <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
-    );
+
+  if (error) {
+    toast.error(error.response.data.error.message);
+  }
+  if (surveyError) {
+    toast.error(surveyError.response.data.error.message);
+  }
+
   if (!projectData || !surveyData)
     return <Typography variant="h4">"Loading..."</Typography>;
 

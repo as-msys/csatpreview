@@ -8,6 +8,7 @@ import { styled } from "@mui/material/styles";
 import CardHeaderDesign from "../../src/components/CardHeader";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
+import { toast } from "react-toastify";
 
 const Accounts = () => {
   const router = useRouter();
@@ -18,10 +19,10 @@ const Accounts = () => {
     token,
   ]);
 
-  if (error)
-    return (
-      <Typography variant="sx={{ m: 2 }}h2">"An error has occured"</Typography>
-    );
+  if (error) {
+    router.push("/");
+    toast.error(error.response.data.error.message);
+  }
 
   if (!accountData) return <Typography variant="h4">"Loading..."</Typography>;
 
