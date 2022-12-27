@@ -137,13 +137,13 @@ export default function CustomizedTables() {
                     {row.attributes.name}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.attributes.project.data.attributes.name}
+                    {/* {row.attributes.project.data.attributes.name} */}
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     {row.attributes.responseDeadlineDate}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.attributes.survey_status.data.attributes.status}
+                    {/* {row.attributes.survey_status.data.attributes.status} */}
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <Tooltip title={actionItems[1].action}>
@@ -167,7 +167,7 @@ export default function CustomizedTables() {
         <TablePagination
           rowsPerPageOptions={[10, 15, 20]}
           component="Box"
-          count={surveyData.data.length}
+          count={surveyData.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
