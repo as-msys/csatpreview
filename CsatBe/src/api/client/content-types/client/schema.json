@@ -32,7 +32,7 @@
     "delivery_head": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::employee.employee"
+      "target": "plugin::users-permissions.user"
     }
   }
 }
