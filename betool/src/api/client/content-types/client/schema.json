@@ -29,10 +29,16 @@
       "target": "api::project.project",
       "mappedBy": "client"
     },
-    "delivery_head": {
+    "deliveryHead": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "clients"
     }
   }
 }

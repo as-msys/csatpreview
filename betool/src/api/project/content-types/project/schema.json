@@ -33,7 +33,7 @@
       "target": "api::client.client",
       "inversedBy": "projects"
     },
-    "project_manager": {
+    "projectManager": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"

@@ -14,7 +14,6 @@ const Accounts = () => {
   const router = useRouter();
   const token = parseCookies().jwt;
   const [loggedInUser, setLoggedInUser] = useState("");
-  const [filteredData, setFilteredData] = useState([]);
 
   const { data: accountData, error } = useSWR([
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=*`,
@@ -31,8 +30,7 @@ const Accounts = () => {
   //Filtering based on the logged in User
   const filteredAccountData = accountData.filter((account) => {
     const filteredAccounts =
-      account.attributes.delivery_head.data.attributes.username ===
-      loggedInUser;
+      account.attributes.deliveryHead.data.attributes.username === loggedInUser;
     return filteredAccounts;
   });
 
@@ -60,9 +58,7 @@ const Accounts = () => {
             >
               <CardHeaderDesign
                 clientName={client.attributes.name}
-                pmName={
-                  client.attributes.delivery_head.data.attributes.username
-                }
+                pmName={client.attributes.deliveryHead.data.attributes.username}
               />
               <CardContentStyled
                 style={{

@@ -45,7 +45,7 @@ const Login = () => {
           password: "",
         });
 
-        localStorage.setItem("username", response.data.user.username);
+        localStorage.setItem("username", response.data.user.name);
 
         Router.push("/Accounts");
       })

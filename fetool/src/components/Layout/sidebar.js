@@ -29,6 +29,7 @@ const Sidebar = ({ children }) => {
   const handleLogOut = () => {
     destroyCookie(null, "jwt");
     toast.success("Logged out Successfully!");
+    localStorage.removeItem("username");
     window.setTimeout(function () {
       window.location = "/";
     }, delay);
@@ -37,6 +38,7 @@ const Sidebar = ({ children }) => {
   useEffect(() => {
     // Perform localStorage action
     const username = localStorage.getItem("username");
+    console.log(typeof username);
     setUser(username);
   }, []);
 

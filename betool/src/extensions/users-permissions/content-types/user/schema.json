@@ -68,6 +68,16 @@
       "relation": "manyToOne",
       "target": "api::user-type.user-type",
       "inversedBy": "Role"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "clients": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::client.client",
+      "inversedBy": "users"
     }
   }
 }

@@ -27,11 +27,6 @@
       "relation": "manyToMany",
       "target": "api::project.project",
       "inversedBy": "team_members"
-    },
-    "user_types": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::user-type.user-type"
     }
   }
 }

@@ -35,7 +35,8 @@ const accountName = () => {
 
   if (!projectDetails)
     return <Typography variant="h4">"Loading..."</Typography>;
-  console.log(projectDetails);
+
+  console.log("Project", projectDetails);
 
   const pendingSurveysList = SurveyLogic(
     projectDetails,
@@ -70,7 +71,7 @@ const accountName = () => {
               <CardHeaderDesign
                 clientName={project.attributes.name}
                 pmName={
-                  project.attributes.project_manager.data.attributes.username
+                  project.attributes.projectManager.data.attributes.username
                 }
                 daysLeft={
                   project.attributes.survey_cadence.send_before - currentDay

@@ -81,7 +81,7 @@ const PermanentDrawerRight = () => {
                 }}
                 title={projectInfo.attributes.name}
                 subheader={
-                  projectInfo.attributes.project_manager.data.attributes.name
+                  projectInfo.attributes.projectManager.data.attributes.name
                 }
               />
               <Box sx={{ ml: 3, mt: -1 }}>
