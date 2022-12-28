@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_poc_point_of_contacts",
+  "info": {
+    "displayName": "point_of_contacts",
+    "icon": "address-book"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    }
+  }
+}

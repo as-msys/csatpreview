@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "surveys",
+  "info": {
+    "singularName": "survey",
+    "pluralName": "surveys",
+    "displayName": "Survey",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "responseDeadlineDate": {
+      "type": "datetime"
+    },
+    "template": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::template.template",
+      "inversedBy": "surveys"
+    },
+    "project": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::project.project",
+      "inversedBy": "surveys"
+    },
+    "survey_status": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::survey-status.survey-status",
+      "inversedBy": "surveys"
+    },
+    "POC": {
+      "type": "component",
+      "repeatable": false,
+      "component": "poc.point-of-contacts"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    }
+  }
+}
