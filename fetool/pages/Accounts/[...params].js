@@ -118,12 +118,12 @@ const projectName = () => {
       )
       .then((response) => {
         // Handle success.
-        router.push(`/Accounts/${params[0]}`);
-        toast.success(`Survey for ${params[1]} is sent Sucessfully!`);
+        router.push(`/Accounts/${account}`);
+        toast.success(`Survey for ${project} is sent Sucessfully!`);
       })
       .catch((error) => {
         // Handle error.
-        router.push(`/Accounts/${params[0]}`);
+        router.push(`/Accounts/${account}`);
         toast.error(error.response.data.error.message);
       });
   };

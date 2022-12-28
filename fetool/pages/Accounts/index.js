@@ -15,7 +15,7 @@ const Accounts = () => {
   const token = parseCookies().jwt;
 
   const { data: accountData, error } = useSWR([
-    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=delivery_head%2Cprojects`,
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=*`,
     token,
   ]);
 
@@ -25,6 +25,8 @@ const Accounts = () => {
   }
 
   if (!accountData) return <Typography variant="h4">"Loading..."</Typography>;
+
+  console.log(accountData);
 
   //To remove the original paddings in the bottom
   const CardContentStyled = styled(CardContent)({
@@ -50,7 +52,9 @@ const Accounts = () => {
             >
               <CardHeaderDesign
                 clientName={client.attributes.name}
-                pmName={client.attributes.delivery_head.data.attributes.name}
+                pmName={
+                  client.attributes.delivery_head.data.attributes.username
+                }
               />
               <CardContentStyled
                 style={{
