@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/system";
 import Grid from "@mui/material/Grid";
 import useSWR from "swr";
@@ -13,6 +13,8 @@ import { toast } from "react-toastify";
 const Accounts = () => {
   const router = useRouter();
   const token = parseCookies().jwt;
+  const [loggedInUser, setLoggedInUser] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
   const { data: accountData, error } = useSWR([
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=*`,
@@ -26,7 +28,13 @@ const Accounts = () => {
 
   if (!accountData) return <Typography variant="h4">"Loading..."</Typography>;
 
-  console.log(accountData);
+  //Filtering based on the logged in User
+  const filteredAccountData = accountData.filter((account) => {
+    const filteredAccounts =
+      account.attributes.delivery_head.data.attributes.username ===
+      loggedInUser;
+    return filteredAccounts;
+  });
 
   //To remove the original paddings in the bottom
   const CardContentStyled = styled(CardContent)({
