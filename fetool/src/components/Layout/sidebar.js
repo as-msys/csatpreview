@@ -17,12 +17,14 @@ import { styled } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
 import { toast } from "react-toastify";
+import { parseCookies } from "nookies";
 
 const drawerWidth = "17rem"; //240px/8=15rem
 
 const Sidebar = ({ children }) => {
-  const [user, setUser] = useState("");
+  const [hydrated, setHydrated] = useState(false);
   const router = useRouter();
+  const username = parseCookies().username;
 
   const delay = "3000";
 
@@ -35,12 +37,16 @@ const Sidebar = ({ children }) => {
     }, delay);
   };
 
+  // useEffect(() => {
+  //   // Perform localStorage action
+  //   const username = localStorage.getItem("username");
+  //   console.log(typeof username);
+  //   setUser(username);
+  // }, []);
+
   useEffect(() => {
-    // Perform localStorage action
-    const username = localStorage.getItem("username");
-    console.log(typeof username);
-    setUser(username);
-  }, []);
+    setHydrated(true);
+  });
 
   const styles = {
     width: drawerWidth,
@@ -137,7 +143,7 @@ const Sidebar = ({ children }) => {
                 fontSize: "16px",
               }}
             >
-              {user}
+              {hydrated && username}
             </Typography>
             <IconButton
               onClick={handleLogOut}

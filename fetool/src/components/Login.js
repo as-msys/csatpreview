@@ -44,9 +44,11 @@ const Login = () => {
           username: "",
           password: "",
         });
-
-        localStorage.setItem("username", response.data.user.name);
-
+        setCookie(null, "username", response.data.user.name, {
+          maxAge: 24 * 60 * 60,
+          path: "/",
+        });
+        // localStorage.setItem("username", response.data.user.name);
         Router.push("/Accounts");
       })
       .catch((error) => {
