@@ -13,14 +13,18 @@ import { toast } from "react-toastify";
 const Accounts = () => {
   const router = useRouter();
   const token = parseCookies().jwt;
-  const [loggedInUser, setLoggedInUser] = useState("");
+
+  const { data: userData, userError } = useSWR([
+    `${process.env.NEXT_PUBLIC_API_URL}/${apiList[8]}`,
+    token,
+  ]);
 
   const { data: accountData, error } = useSWR([
     `${process.env.NEXT_PUBLIC_API_URL}/${apiList[0]}?fields=name&populate=*`,
     token,
   ]);
 
-  if (error) {
+  if (error || userError) {
     router.push("/");
     toast.error(error.response.data.error.message);
   }
@@ -28,11 +32,11 @@ const Accounts = () => {
   if (!accountData) return <Typography variant="h4">"Loading..."</Typography>;
 
   //Filtering based on the logged in User
-  const filteredAccountData = accountData.filter((account) => {
-    const filteredAccounts =
-      account.attributes.deliveryHead.data.attributes.username === loggedInUser;
-    return filteredAccounts;
-  });
+  // const filteredAccountData = accountData.filter((account) => {
+  //   const filteredAccounts =
+  //     account.attributes.deliveryHead.data.attributes.username === loggedInUser;
+  //   return filteredAccounts;
+  // });
 
   //To remove the original paddings in the bottom
   const CardContentStyled = styled(CardContent)({
